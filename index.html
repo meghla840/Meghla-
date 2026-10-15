@@ -1,0 +1,578 @@
+<!doctype html>
+<html lang="bn">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0c0b0e">
+<meta name="color-scheme" content="dark">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Meghla">
+<link rel="apple-touch-icon" id="touchIcon" href="">
+<title>Meghla ☾</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Hind+Siliguri:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0c0b0e;--p:#17141a;--p2:#1f1a22;--gold:#d9b98b;--gold2:#f0d9b7;--rose:#c79a9c;--text:#f4eee8;--muted:#b3a8a0;--line:#2f2830;color-scheme:dark;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px)}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{height:100%;margin:0;overflow:hidden;overscroll-behavior:none}
+body{background:radial-gradient(ellipse at 80% -5%,var(--glow,#35242f) 0,transparent 45%),var(--bg);color:var(--text);font:16px/1.6 'Hind Siliguri',system-ui,sans-serif;user-select:none;-webkit-user-select:none}
+input,textarea,select{user-select:text;-webkit-user-select:text}
+button,input,textarea,select{font:inherit;color:inherit}button{cursor:pointer;border:0;background:none}
+#app{height:100%;display:flex;flex-direction:column;max-width:560px;margin:0 auto}
+.top{display:flex;align-items:center;justify-content:space-between;padding:12px 20px 8px}
+.logo{font:600 26px 'Cormorant Garamond',Georgia,serif;color:var(--gold2);line-height:1}
+.logo i{color:var(--rose);font-style:normal}
+.date{font-size:12px;color:var(--muted)}
+.ibtn{width:40px;height:40px;border-radius:14px;background:var(--p2);color:var(--gold);font-size:18px}
+main{flex:1;overflow-y:auto;overflow-x:hidden;padding:6px 18px 24px;-webkit-overflow-scrolling:touch}
+.view{display:none}.view.on{display:block;animation:fi .25s ease}
+@keyframes fi{from{opacity:0;transform:translateY(6px)}to{opacity:1}}
+h2{font:600 31px/1.15 'Cormorant Garamond',Georgia,serif;color:var(--gold2);margin:8px 0 4px}
+h3{font:600 22px 'Cormorant Garamond',Georgia,serif;color:var(--gold2);margin:0 0 4px}
+.sub{color:var(--muted);font-size:14px;margin:0 0 16px}
+.card{background:var(--p);border:1px solid var(--line);border-radius:22px;padding:18px;margin-bottom:14px}
+.mini{font-size:12px;color:var(--muted)}
+.hero{position:relative;overflow:hidden;border-radius:28px;padding:24px 22px 22px;margin-bottom:14px;background:linear-gradient(160deg,#2b2a4a 0%,#5d4156 55%,#b98468 100%);border:1px solid #6b5444}
+.hero:before{content:"";position:absolute;right:22px;top:20px;width:54px;height:54px;border-radius:50%;background:#f3d7aa;box-shadow:0 0 40px #f3d7aa88}
+.hero:after{content:"";position:absolute;inset:0;background-image:radial-gradient(#f3ddbc 1px,transparent 1.5px);background-size:34px 29px;opacity:.35;pointer-events:none}
+.hero>*{position:relative;z-index:1}
+.hero small{color:#f0dcc4cc;font-size:13px}
+.hero h1{font:600 40px/1.05 'Cormorant Garamond',Georgia,serif;margin:6px 0 14px;color:#fff6ea;max-width:230px}
+.hero q{display:block;font:italic 500 19px/1.35 'Cormorant Garamond',Georgia,serif;color:#fbe9cf;quotes:none;max-width:260px}
+.strip{display:flex;gap:8px;margin:12px 0 0}
+.strip span{flex:1;height:42px;border-radius:12px;background:var(--p2);display:flex;align-items:center;justify-content:center;font-size:20px}
+.strip span.e{opacity:.35;font-size:12px;color:var(--muted)}
+.qgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px}
+.q{background:var(--p2);border-radius:20px;padding:14px;text-align:left;display:flex;flex-direction:column;gap:2px;min-height:86px;border:1px solid var(--line)}
+.q b{font-size:22px;font-weight:400}.q span{font-size:14px;color:var(--gold2)}.q:active{transform:scale(.97)}
+.stats{display:flex;gap:10px;margin-bottom:14px}
+.stat{flex:1;background:var(--p);border:1px solid var(--line);border-radius:18px;padding:12px 14px}
+.stat b{display:block;font:600 28px/1 'Cormorant Garamond',serif;color:var(--gold2)}.stat span{font-size:12px;color:var(--muted)}
+.moods{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.mb{background:var(--p2);border:1px solid var(--line);border-radius:18px;padding:14px 10px;text-align:center;line-height:1.35;transition:.15s}
+.mb span{display:block;font-size:28px}.mb small{display:block;color:var(--muted);font-size:11px}
+.mb.sel{border-color:var(--gold);background:#33261f}
+.comfort{background:#241b22;border:1px solid #5a4349;border-radius:20px;padding:16px;margin-top:14px}
+.comfort strong{display:block;font:600 23px/1.25 'Cormorant Garamond',serif;color:var(--gold2)}.comfort p{margin:8px 0 12px;color:#e3d8d1}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:1px solid var(--gold);color:var(--gold2);border-radius:16px;padding:12px 20px;min-height:46px;font-weight:500}
+.btn.f{background:var(--gold);color:#18110d;border-color:var(--gold)}.btn.w{width:100%}.btn:active{transform:scale(.97)}
+.link{color:var(--gold);text-decoration:underline;padding:6px 2px;font-size:13px}
+.hide{display:none!important}
+.circle{width:160px;height:160px;margin:14px auto;border:1px solid var(--gold);border-radius:50%;display:flex;align-items:center;justify-content:center;text-align:center;padding:14px;background:radial-gradient(circle,#3b2c2d,#171317);font:600 21px/1.2 'Cormorant Garamond',serif;color:var(--gold2);transition:transform 4s ease-in-out}
+.circle.in{transform:scale(1.18)}.circle.out{transform:scale(.9)}
+.aff{font:italic 500 26px/1.35 'Cormorant Garamond',serif;color:var(--gold2);text-align:center;padding:10px 4px 16px}
+.chk label{display:flex;gap:12px;align-items:center;padding:11px 0;border-top:1px solid var(--line);color:#ddd2ca}
+.chk label:first-child{border-top:0}
+.chk input{appearance:none;-webkit-appearance:none;flex:none;width:24px;height:24px;border-radius:50%;border:1.5px solid var(--gold);background:none;display:grid;place-content:center}
+.chk input:checked{background:var(--gold)}.chk input:checked:after{content:"✓";color:#18110d;font-size:14px;font-weight:700}
+.bar{height:6px;background:#30292a;border-radius:9px;overflow:hidden;margin:8px 0 4px}.bar div{height:100%;width:0;background:var(--gold);transition:width .3s}
+.chips{display:flex;gap:8px;overflow-x:auto;margin:0 -18px 12px;padding:0 18px;scrollbar-width:none}.chips::-webkit-scrollbar{display:none}
+.chip{flex:none;background:var(--p2);border:1px solid var(--line);color:var(--gold2);border-radius:99px;padding:8px 16px;font-size:14px;white-space:nowrap}
+.chip.sel{border-color:var(--gold);background:#33261f}
+.pr{display:block;width:100%;text-align:left;background:var(--p2);border:1px solid var(--line);border-radius:16px;padding:13px 14px;margin-bottom:8px;color:#e6dbd2}.pr.sel{border-color:var(--gold)}
+.fld{display:grid;gap:6px;margin-bottom:12px}.fld label{font-size:13px;color:var(--gold2)}
+input[type=text],textarea,select{width:100%;background:#0f0d11;border:1px solid var(--line);border-radius:14px;padding:12px 14px;outline:none;font-size:16px}
+textarea{min-height:150px;resize:vertical}input:focus,textarea:focus,select:focus{border-color:var(--gold)}
+.en{border-top:1px solid var(--line);padding:14px 0}.en h4{margin:0;font-weight:500;color:var(--gold2)}.en p{white-space:pre-wrap;margin:4px 0 2px;color:var(--muted);font-size:15px}
+.row{display:flex;align-items:center;gap:10px;padding:11px 0;border-top:1px solid var(--line)}.row label{flex:1;display:flex;gap:12px;align-items:center}.row.d label span{text-decoration:line-through;opacity:.55}
+.joys{display:flex;gap:10px;overflow-x:auto;margin:0 -18px;padding:0 18px 6px;scroll-snap-type:x mandatory;scrollbar-width:none}.joys::-webkit-scrollbar{display:none}
+.joy{flex:none;width:200px;scroll-snap-align:start;background:var(--p2);border:1px solid var(--line);border-radius:22px;padding:16px}.joy b{font-size:28px;font-weight:400}.joy p{margin:6px 0 0;color:var(--muted);font-size:14px;line-height:1.5}
+nav{display:flex;background:#100e12f2;border-top:1px solid var(--line);padding:6px 6px calc(6px + env(safe-area-inset-bottom,0px));backdrop-filter:blur(14px)}
+nav button{flex:1;display:flex;flex-direction:column;align-items:center;gap:0;color:var(--muted);font-size:11px;padding:6px 0;border-radius:14px}
+nav button b{font-size:21px;font-weight:400;line-height:1.2}nav button.on{color:var(--gold2)}nav button.on b{color:var(--gold)}
+.toast{position:fixed;left:50%;bottom:calc(88px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:#33261f;border:1px solid var(--gold);color:var(--gold2);padding:10px 18px;border-radius:99px;font-size:14px;z-index:30;opacity:0;pointer-events:none;transition:opacity .2s;max-width:90%;text-align:center}.toast.on{opacity:1}
+.sheet{position:fixed;inset:0;background:#000a;z-index:40;display:flex;align-items:flex-end;justify-content:center}
+.sheet>div{background:var(--p);border-top:1px solid var(--gold);border-radius:28px 28px 0 0;padding:22px 22px calc(22px + env(safe-area-inset-bottom,0px));width:100%;max-width:560px;animation:up .25s ease}
+@keyframes up{from{transform:translateY(40px);opacity:0}}
+.sheet ol{padding-left:20px;color:#ddd2ca}.sheet li{margin-bottom:6px}
+#sky{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none}#app{position:relative;z-index:1}
+.hero:before{animation:glow 5s ease-in-out infinite}@keyframes glow{50%{box-shadow:0 0 75px #f3d7aaee;transform:scale(1.1)}}
+.circle{position:relative}.circle:before,.circle:after{content:"";position:absolute;inset:-1px;border-radius:50%;border:1px solid var(--gold);opacity:0}.circle.in:before{animation:rip 4s ease-out infinite}.circle.in:after{animation:rip 4s ease-out 1.3s infinite}@keyframes rip{from{opacity:.7;transform:scale(1)}to{opacity:0;transform:scale(1.8)}}
+.wsky{position:relative;height:180px;border-radius:18px;background:linear-gradient(#151025,#2c1d2e);overflow:hidden;border:1px solid var(--line)}.ws{position:absolute;width:20px;height:20px;margin:-10px;color:var(--gold2);font-size:16px;line-height:20px;text-shadow:0 0 12px var(--gold);animation:tw 3s ease-in-out infinite}@keyframes tw{50%{opacity:.35;transform:scale(.75)}}
+.fly{position:fixed;left:0;top:0;z-index:60;width:8px;height:8px;margin:-4px;border-radius:50%;background:#fff3d6;box-shadow:0 0 14px 6px #f3d7aa,0 0 44px 16px #d9b98b88;pointer-events:none}
+.rel{position:fixed;inset:0;z-index:55;pointer-events:none;overflow:hidden}.rel span{position:absolute;color:var(--gold2);font:italic 500 22px 'Cormorant Garamond',serif;white-space:nowrap;animation:rl 3.4s ease-in forwards}@keyframes rl{to{transform:translate(var(--dx),-70vh) rotate(var(--r)) scale(.6);opacity:0;filter:blur(6px)}}
+.env{position:relative;display:block;width:190px;height:120px;margin:16px auto 10px;background:#3d2c36;border:1px solid #6b5444;border-radius:12px;box-shadow:0 10px 30px #0006}.env:after{content:"♡";position:absolute;inset:0;display:grid;place-items:center;font-size:26px;color:var(--rose);padding-top:34px}.flap{position:absolute;top:0;left:0;right:0;height:62px;background:#53404b;clip-path:polygon(0 0,100% 0,50% 100%);transform-origin:top;transition:transform .7s;z-index:2}.env.open .flap{transform:rotateX(180deg)}.env.open:after{opacity:0}
+.letter{font:italic 500 21px/1.45 'Cormorant Garamond','Hind Siliguri',serif;color:var(--gold2);max-height:0;opacity:0;overflow:hidden;transform:translateY(12px) scale(.96);transition:.7s}.letter.on{max-height:240px;opacity:1;transform:none;margin-top:12px}
+.jar{position:relative;height:165px;width:100%;max-width:250px;margin:12px auto 0;border:2px solid #d9b98b88;border-radius:14px 14px 44px 44px;background:linear-gradient(#ffffff0a,#d9b98b14);overflow:hidden}.mb2{position:absolute;width:26px;height:26px;border-radius:50%;box-shadow:0 0 14px #fff5,inset -4px -4px 8px #0003}.mb2.drop{animation:dr .9s cubic-bezier(.4,0,.7,1.25) both}@keyframes dr{from{transform:translateY(-200px);opacity:0}25%{opacity:1}}
+.bub{position:relative;height:230px;overflow:hidden;border-radius:18px;background:linear-gradient(#141226,#261c2d);border:1px solid var(--line)}.bb{position:absolute;bottom:-70px;border-radius:50%;border:1px solid #f0d9b766;background:radial-gradient(circle at 30% 30%,#fff9,#d9b98b33 60%,#bd8f9155);animation:bf linear forwards}@keyframes bf{to{transform:translateY(-310px)}}.bb.pop{animation:pp .25s forwards!important}@keyframes pp{to{transform:scale(1.7);opacity:0}}
+.pt{position:fixed;inset:0;z-index:70;pointer-events:none;overflow:hidden}.pt span{position:absolute;top:-40px;animation:pf linear forwards}@keyframes pf{to{transform:translate(var(--dx),110vh) rotate(360deg)}}
+nav button{font-size:10px}
+.sheet>div{max-height:88vh;overflow:auto}
+html[data-th=pink]{--gold:#e8a9bd;--gold2:#ffdbe6;--rose:#f4a3b8;--glow:#4a2236}html[data-th=blue]{--gold:#9fc3ef;--gold2:#d6e7ff;--rose:#a9b6f2;--glow:#1f2f55}html[data-th=green]{--gold:#a9d3a4;--gold2:#dcf3d7;--rose:#c8d98c;--glow:#1f3a2c}
+.sw{display:flex;gap:14px;margin-top:10px}.sw button{width:44px;height:44px;border-radius:50%;border:2px solid transparent}.sw button.sel{border-color:#fff;box-shadow:0 0 14px #fff5}
+.chal{display:flex;gap:14px;align-items:flex-start}.fl{font-size:40px;line-height:1;filter:grayscale(1);opacity:.5}.fl.on{filter:none;opacity:1;animation:flm 1.6s ease-in-out infinite}@keyframes flm{50%{transform:scale(1.14) rotate(-5deg)}}.btn:disabled{opacity:.55}
+.view.on>*{animation:fi .5s both}.view.on>*:nth-child(2){animation-delay:.06s}.view.on>*:nth-child(3){animation-delay:.12s}.view.on>*:nth-child(4){animation-delay:.18s}.view.on>*:nth-child(5){animation-delay:.24s}.view.on>*:nth-child(n+6){animation-delay:.3s}
+.hero:after{animation:dr2 9s linear infinite}@keyframes dr2{to{background-position:34px 29px}}
+.logo i{display:inline-block;animation:hb 1.9s infinite}@keyframes hb{0%,40%,100%{transform:scale(1)}10%{transform:scale(1.35)}25%{transform:scale(1.15)}}
+nav button.on b{animation:np .45s}@keyframes np{50%{transform:translateY(-6px) scale(1.25)}}
+.mb.sel{animation:np .45s}
+.btn.f{background-image:linear-gradient(110deg,transparent 35%,#fff6 50%,transparent 65%);background-size:250% 100%;animation:shm 4.5s ease-in-out infinite}@keyframes shm{from{background-position:150% 0}to{background-position:-60% 0}}
+.spk{position:fixed;z-index:95;width:6px;height:6px;border-radius:50%;background:var(--gold2);box-shadow:0 0 8px var(--gold);pointer-events:none}
+.stks{display:flex;gap:6px;flex-wrap:wrap}.stks button{width:44px;height:44px;border-radius:14px;background:var(--p2);border:1px solid var(--line);font-size:22px;transition:.15s}.stks button.sel{border-color:var(--gold);transform:scale(1.12) rotate(-6deg);background:#33261f}
+.en{border-top:0;border-left:3px solid var(--mc,#39312d);padding:12px 44px 12px 12px;margin-bottom:8px;position:relative;background:linear-gradient(90deg,color-mix(in srgb,var(--mc,#39312d) 16%,transparent),transparent 70%);border-radius:0 14px 14px 0}.stk{position:absolute;right:8px;top:8px;font-size:30px;animation:sway 4s ease-in-out infinite}@keyframes sway{50%{transform:rotate(-10deg) scale(1.08)}}
+input[type=time],input[type=date]{width:100%;background:#0f0d11;border:1px solid var(--line);border-radius:14px;padding:12px 14px;font-size:16px;outline:none;color-scheme:dark}
+.hug{display:grid;place-items:center;width:128px;height:128px;margin:10px auto;border-radius:50%;background:radial-gradient(circle,#6b3d4e,#2a1a24);border:1px solid var(--rose);font-size:54px;touch-action:none;transition:box-shadow .3s}.hug.hold{animation:hbt .9s infinite;box-shadow:0 0 60px 20px #c79a9c66}@keyframes hbt{0%,100%{transform:scale(1)}20%{transform:scale(1.12)}40%{transform:scale(1.02)}60%{transform:scale(1.1)}}
+.sur{position:fixed;inset:0;z-index:110;background:radial-gradient(ellipse at 50% 40%,#4a2a46,#0c0b0e 75%);overflow:hidden;display:flex;align-items:center;justify-content:center;padding:24px}.sc{position:relative;z-index:2;text-align:center;animation:pp2 .9s cubic-bezier(.3,1.5,.5,1)}@keyframes pp2{from{transform:scale(.2);opacity:0}}.ck{font-size:96px;animation:jm2 1.2s ease-in-out infinite}@keyframes jm2{50%{transform:translateY(-16px) rotate(-6deg)}}.sc p{color:#e6dbd2}.bl{position:absolute;bottom:-60px;font-size:42px;animation:rise linear infinite}@keyframes rise{to{transform:translateY(-115vh) translateX(30px)}}.cf{position:absolute;top:-14px;width:8px;height:14px;border-radius:2px;animation:fall linear infinite}@keyframes fall{to{transform:translateY(110vh) rotate(720deg)}}#homeAff{transition:opacity .5s}
+.mpm{font:italic 500 25px/1.4 'Cormorant Garamond','Hind Siliguri',serif;color:var(--gold2);text-align:center;min-height:120px;display:flex;align-items:center;justify-content:center;padding:8px 4px;opacity:0;transform:translateY(8px);transition:.5s}.mpm.on{opacity:1;transform:none}
+.bs,.gn{position:fixed;inset:0;z-index:90;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px;padding:24px 28px;text-align:center}.bs{background:radial-gradient(ellipse at 50% 85%,#2a1d3a,#05040a 70%)}.gn{background:#030208}
+.bsb{position:relative;width:3px;height:34vh;background:linear-gradient(#d9b98b00,#d9b98b77,#d9b98b00);border-radius:3px}.bsb i{position:absolute;left:50%;bottom:4%;width:54px;height:54px;margin:0 0 -27px -27px;border-radius:50%;background:radial-gradient(circle,#fff6dd,#d9b98b 45%,transparent 70%);box-shadow:0 0 50px 18px #d9b98b66;transition:bottom 4s ease-in-out;animation:g2 3s ease-in-out infinite}@keyframes g2{50%{filter:brightness(1.35)}}.bs .lm{min-height:110px;font-size:21px;animation:fi 1s}
+.gn .moon{filter:brightness(.55);animation:bob 5s ease-in-out infinite}.moon.zz .eye{animation:none;transform:scaleY(.12)}.zs b{display:inline-block;color:var(--gold);font:600 22px 'Cormorant Garamond',serif;opacity:0;animation:zq 3s infinite}.zs b:nth-child(2){animation-delay:.8s}.zs b:nth-child(3){animation-delay:1.6s}@keyframes zq{0%{opacity:0;transform:translate(0,10px)}50%{opacity:.85}100%{opacity:0;transform:translate(18px,-26px)}}
+.rb{display:flex;align-items:center;gap:10px;margin:8px 0}.rb i{height:12px;border-radius:9px;background:linear-gradient(90deg,var(--rose),var(--gold));animation:gw .9s ease-out}@keyframes gw{from{width:0}}.rb span{font-size:22px}.rb b{font-weight:500;color:var(--gold2)}.rl{padding:9px 0;border-top:1px solid var(--line);color:#ddd2ca}
+.cpet{display:flex;align-items:center;gap:16px}#pet{flex:none;padding:0}.moon{position:relative;width:84px;height:84px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#fff3d6,#e9c892 70%);box-shadow:0 0 30px #f3d7aa88;animation:bob 3.2s ease-in-out infinite}@keyframes bob{50%{transform:translateY(-6px)}}.moon.jump{animation:jmp .5s}@keyframes jmp{40%{transform:translateY(-22px) scale(1.07)}}
+.eye{position:absolute;top:34px;width:9px;height:12px;background:#3a2a2a;border-radius:50%;animation:bl 4s infinite}.eye.l{left:25px}.eye.r{right:25px}@keyframes bl{0%,94%,100%{transform:scaleY(1)}97%{transform:scaleY(.1)}}.ch{position:absolute;top:47px;width:12px;height:7px;background:#e9a5a0aa;border-radius:50%}.ch.l{left:11px}.ch.r{right:11px}.mo{position:absolute;left:50%;top:48px;width:16px;height:8px;margin-left:-8px;border-bottom:2.5px solid #3a2a2a;border-radius:0 0 16px 16px}.moon.sad .mo{transform:rotate(180deg);top:56px}
+.hrt{position:fixed;z-index:80;pointer-events:none;font-size:18px;animation:hr 1.4s ease-out forwards}@keyframes hr{to{transform:translate(var(--dx),-120px) scale(1.3);opacity:0}}
+.cal{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;text-align:center}.cal span{aspect-ratio:1;display:grid;place-items:center;border-radius:12px;background:var(--p2);font-size:18px}.cal span.h{background:none;aspect-ratio:auto;font-size:11px;color:var(--muted)}.cal span.n{font-size:12px;color:var(--muted);opacity:.55}.cal span.t{border:1px solid var(--gold)}.cal span:empty{background:none}
+.lock{position:fixed;inset:0;z-index:100;background:radial-gradient(ellipse at 80% 0,#35242f,transparent 55%),#0c0b0e;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:24px;padding:20px}.lm{font:600 24px 'Cormorant Garamond','Hind Siliguri',serif;color:var(--gold2);text-align:center}.dots{display:flex;gap:16px}.dots i{width:16px;height:16px;border-radius:50%;border:1.5px solid var(--gold)}.dots i.on{background:var(--gold)}.kp{display:grid;grid-template-columns:repeat(3,72px);gap:14px}.kp button{height:72px;border-radius:50%;background:var(--p2);border:1px solid var(--line);font-size:26px;color:var(--gold2)}.kp button:active{background:#33261f}.lock.sk .dots{animation:sk .4s}@keyframes sk{25%{transform:translateX(-10px)}75%{transform:translateX(10px)}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+.stg{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:4px}
+.stb{min-height:92px;border-radius:18px;border:1px solid var(--line);background:radial-gradient(circle at 50% 25%,#3b2c2d,var(--p2));color:var(--gold2);font-size:13px;line-height:1.3;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;padding:8px 4px;transition:.15s}
+.stb b{font-size:26px;font-weight:400;color:var(--gold)}
+.stb.sel{border-color:var(--gold);box-shadow:0 0 18px #d9b98b44}
+.stb:active{transform:scale(.97)}
+.mlt{font:italic 500 20px/1.55 'Cormorant Garamond','Hind Siliguri',serif;color:var(--gold2);white-space:pre-wrap;margin:8px 0 0}
+#ltGrid .pr b{display:block;font-weight:500;color:var(--gold2)}
+#ltGrid .pr span{display:block;margin-top:2px}
+
+.ck2{font-size:76px;line-height:1;margin:8px 0}.ck2.sh{animation:shk .65s}@keyframes shk{20%{transform:rotate(-14deg)}40%{transform:rotate(12deg)}60%{transform:rotate(-8deg) scale(1.1)}80%{transform:rotate(6deg)}}.ck2.bk{animation:brk .4s forwards}@keyframes brk{to{transform:scale(1.6);opacity:0}}
+.slip{max-height:0;overflow:hidden;opacity:0;background:#f6e9d3;color:#3a2a2a;border-radius:6px;padding:0 14px;font:italic 500 19px/1.45 'Cormorant Garamond','Hind Siliguri',serif;transition:.6s;transform:rotate(-1.5deg)}.slip.on{max-height:260px;opacity:1;padding:14px;margin-top:10px}
+.cdl{position:relative;width:34px;height:120px;margin:18px auto}.cdl b{position:absolute;bottom:0;left:0;width:34px;height:80px;border-radius:6px;background:linear-gradient(90deg,#e8d3b0,#f8ead0,#d9c19a)}.fl2{position:absolute;left:50%;bottom:78px;width:14px;height:30px;margin-left:-7px;border-radius:50% 50% 50% 50%/60% 60% 40% 40%;background:radial-gradient(#fff6c8,#ffb347 60%,transparent 75%);box-shadow:0 0 30px 10px #ffb34766;animation:fk .3s ease-in-out infinite alternate;transform-origin:bottom}@keyframes fk{to{transform:scale(1.08,.94) rotate(3deg)}}.cdl.off .fl2{opacity:0;transition:.4s}.cdl.off:after{content:"";position:absolute;left:50%;bottom:92px;width:6px;height:40px;margin-left:-3px;background:linear-gradient(#ffffff66,transparent);filter:blur(3px);animation:sm 2.2s ease-out forwards}@keyframes sm{from{opacity:.9;transform:translateY(0)}to{opacity:0;transform:translateY(-55px)}}
+/* ===== Desktop layout ===== */
+@media(min-width:900px){
+#app{max-width:1240px;display:grid;grid-template-columns:240px minmax(0,1fr);grid-template-rows:auto minmax(0,1fr);column-gap:8px}
+.top{grid-column:1/-1;padding:20px 30px 10px}.logo{font-size:34px}.date{font-size:13px}
+main{grid-column:2;grid-row:2;padding:6px 30px 50px 18px}
+nav{grid-column:1;grid-row:2;flex-direction:column;align-self:start;gap:4px;margin:6px 0 0 24px;padding:12px;background:var(--p);border:1px solid var(--line);border-radius:24px;backdrop-filter:none}
+nav button{flex:none;flex-direction:row;justify-content:flex-start;gap:14px;font-size:15px;padding:12px 16px;border-radius:16px}nav button b{font-size:21px;width:28px;text-align:center}nav button.on{background:#33261f}nav button:hover{background:var(--p2)}
+.view.on{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));column-gap:18px;align-items:start}
+.view.on>:is(h2,h3,.sub,.hero,.moods,.comfort,.qgrid,.stats,.joys,.chips,#abtB,p.mini){grid-column:1/-1}
+.qgrid,.moods{grid-template-columns:repeat(4,1fr)}
+.hero{padding:40px 44px}.hero h1{font-size:60px;max-width:560px}.hero q{font-size:27px;max-width:520px}.hero:before{width:88px;height:88px;right:46px;top:34px}
+h2{font-size:40px}.wsky{height:240px}.bub{height:280px}
+.toast{bottom:32px}.sheet{align-items:center}.sheet>div{border-radius:28px;max-width:520px;border:1px solid var(--gold)}
+main::-webkit-scrollbar{width:8px}main::-webkit-scrollbar-thumb{background:var(--line);border-radius:8px}
+}
+@media(min-width:1500px){#app{max-width:1400px}}
+@media(hover:hover){.btn:hover,.chip:hover,.mb:hover,.q:hover,.pr:hover,.stb:hover{filter:brightness(1.18);transform:translateY(-1px)}.card:hover{border-color:#4a3c36}}
+</style>
+</head>
+<body>
+<canvas id="sky"></canvas>
+<div id="app">
+<div class="top"><div><div class="logo">Meghla <i>♥</i></div><div class="date" id="date"></div></div><button class="ibtn" id="instBtn" aria-label="Home screen-এ রাখো">⤓</button></div>
+<main id="main">
+
+<section class="view on" id="home">
+ <div class="hero"><small id="greet"></small><h1>একটা ছোট্ট পৃথিবী, শুধু তোমার।</h1><q>You can begin again, as many times as you need. ♡</q></div>
+ <div class="card"><h3>এই সপ্তাহের মন</h3><div class="strip" id="strip"></div></div>
+ <div class="card cpet"><button id="pet" aria-label="চাঁদু"><div class="moon"><i class="eye l"></i><i class="eye r"></i><i class="ch l"></i><i class="ch r"></i><i class="mo"></i></div></button><div><h3>চাঁদু ☾</h3><p class="sub" id="petSay" style="margin:0">আমাকে ছুঁয়ে দেখো!</p></div></div>
+<div class="card"><h3>ইচ্ছে-আকাশ ✨</h3><p class="sub" style="margin-bottom:10px">একটা ইচ্ছে বলো, সে তারা হয়ে আকাশে থেকে যাবে। তারায় চাপলে ইচ্ছেটা পড়তে পারবে।</p><div class="wsky" id="wsky"></div><button class="btn f w" id="wishBtn" style="margin-top:12px">তারাকে ইচ্ছে বলি ☄</button></div>
+<div class="card"><h3 id="roT"></h3><div class="chk" id="roL" style="margin-top:8px"></div><div class="bar"><div id="roB"></div></div></div>
+<div class="card chal"><div class="fl" id="fl">🔥</div><div style="flex:1"><h3>আজকের ছোট্ট চ্যালেঞ্জ</h3><p class="sub" id="chT" style="margin:0 0 10px"></p><button class="btn f" id="chB">করেছি ✓</button> <span class="mini" id="chS"></span></div></div>
+<div class="qgrid">
+  <button class="q" data-go="mood"><b>🌧️</b><span>আজ মন কেমন?</span></button>
+  <button class="q" data-go="calm"><b>☁️</b><span>একটু শ্বাস নিই</span></button>
+  <button class="q" data-go="diary"><b>✎</b><span>মনের কথা লিখি</span></button>
+  <button class="q" data-go="goals"><b>✧</b><span>ছোট্ট লক্ষ্য</span></button>
+ </div>
+ <div class="stats"><div class="stat"><b id="sEntries">0</b><span>ডায়েরির পাতা</span></div><div class="stat"><b id="sCare">0</b><span>আজকের ছোট যত্ন</span></div><div class="stat"><b id="sGoals">0</b><span>লক্ষ্য পূরণ</span></div></div>
+ <div class="card" style="text-align:center"><h3>মন ভালো করার কোণ 🌈</h3><button class="hug" id="hugB" aria-label="আলিঙ্গন">🤗</button><p class="sub" id="hugT" style="margin:0 0 12px">চেপে ধরে রাখো, একটা আলিঙ্গন পাওনা আছে</p><button class="btn f w" id="hpB">🎁 ছোট্ট সারপ্রাইজ</button></div>
+<button class="link" id="abtB" style="display:block;margin:0 auto 14px">♡ এই অ্যাপে তোমার জন্য কী কী রেখেছি</button>
+<div class="card"><h3>আমার রঙ 🎨</h3><p class="sub" style="margin:0">অ্যাপটা তোমার পছন্দের রঙে সাজাও।</p><div class="sw" id="sw"><button data-t="" aria-label="সোনালি" style="background:#d9b98b"></button><button data-t="pink" aria-label="গোলাপি" style="background:#e8a9bd"></button><button data-t="blue" aria-label="নীল" style="background:#9fc3ef"></button><button data-t="green" aria-label="সবুজ" style="background:#a9d3a4"></button></div></div>
+<div class="card"><div class="aff" id="homeAff"></div><button class="btn w" id="homeAffBtn">আরেকটা কথা বলো ↻</button><button class="btn w" id="homeQ" style="margin-top:8px">🖼 ছবি করে শেয়ার করি</button></div>
+</section>
+
+<section class="view" id="mood">
+ <h2>আজ তোমার মন কেমন, মেঘলা?</h2><p class="sub">ভালো থাকার অভিনয় লাগবে না—যেমন লাগছে, তেমনটাই বেছে নাও।</p>
+ <div class="moods" id="moods"></div>
+ <div id="moodRes" class="comfort hide" aria-live="polite"></div>
+ <div class="card" style="margin-top:14px"><h3 id="calT"></h3><p class="sub" style="margin-bottom:10px">তোমার মনের মাস, দিন দিন।</p><div class="cal" id="cal"></div><p class="mini" id="calN" style="margin:10px 0 0"></p><button class="btn w" id="rpBtn" style="margin-top:12px">📊 এই মাসের মনের রিপোর্ট দেখি</button></div>
+<p class="mini" style="margin-top:14px">তোমার বাছাই এই ডিভাইসেই সংরক্ষিত থাকে। এটা পরীক্ষা নয়, শুধু নিজের খোঁজ নেওয়া।</p>
+</section>
+
+<section class="view" id="calm">
+ <h2>মনটা ভারী হলে এখানে এসো</h2><p class="sub">সব সমস্যা এখনই মেটাতে হবে না; পরের ছোট্ট পদক্ষেপই যথেষ্ট।</p>
+ <div class="card"><h3>বার্তার ঝুড়ি 💌</h3><p class="sub" style="margin-bottom:10px">আজ কেমন কথা শুনতে ইচ্ছে করছে?</p><div class="chips" id="mpC" style="margin:0 0 6px;padding:0"></div><div class="mpm" id="mpM"></div><button class="btn w" id="mpB">আরেকটা বার্তা ↻</button><p class="mini" style="margin:10px 0 0">এই কথাগুলো তোমার অনুভূতি বুঝতে সাহায্য করার জন্য—তোমার হয়ে তোমার জীবন ঠিক করে দেওয়ার জন্য নয়। ♡</p><button class="link" id="mpQ">🖼 ছবি করে রাখি</button></div>
+<div class="card"><h3>চোখ বন্ধ করে বডি-স্ক্যান 🧘</h3><p class="sub">পায়ের পাতা থেকে মাথার দিকে, একটা আলো তোমাকে ধীরে নিয়ে যাবে। ১২ মিনিটের শান্ত বিরতি।</p><button class="chip" id="voBtn" style="margin-bottom:12px"></button><br><button class="btn f w" id="bsBtn">শুরু করি 🧘</button></div>
+<div class="card" style="text-align:center"><h3>একটু শ্বাস নিই</h3><p class="sub" style="margin:0">কাঁধ ঢিলে করো, পা মাটিতে রাখো।</p><div class="circle" id="circle">প্রস্তুত? ♡</div><p class="mini" id="bText">৩০ সেকেন্ডের শান্ত বিরতি</p><button class="btn f" id="bBtn">শুরু করি</button></div>
+ <div class="card"><h3>নিজেকে একটু সান্ত্বনা</h3><div class="aff" id="aff">“আজ কঠিন লাগছে বলে, সব দিন এমন থাকবে না।”</div><button class="btn w" id="affBtn">আরেকটা কথা বলো ↻</button></div>
+ <div class="card"><h3>এই মুহূর্তে ছোট্ট যত্ন</h3><p class="sub" style="margin-bottom:6px">সবকিছু একসঙ্গে নয়—একটা বেছে নাও।</p><div class="chk" id="care"></div><div class="bar"><div id="careBar"></div></div><p class="mini" id="careCnt"></p></div>
+ <div class="card"><h3>ছেড়ে দিই 🕊</h3><p class="sub">যা ভারী লাগছে লেখো, তারপর উড়িয়ে দাও। এটা কোথাও রাখা হয় না।</p><textarea id="rel" style="min-height:90px" placeholder="যা আর বইতে চাই না…"></textarea><button class="btn f w" id="relBtn" style="margin-top:10px">উড়িয়ে দিই ☁</button></div>
+<div class="card"><h3>খুলে বলার ছোট্ট শুরু</h3><p class="sub">যেটা সত্যি, সেটা বেছে নাও।</p><div id="prompts"></div><button class="btn f w" id="sendPrompt">ডায়েরিতে লিখি →</button></div>
+</section>
+
+<section class="view" id="diary">
+ <h2>যা বলতে পারোনি, লিখে রাখো</h2><p class="sub">নিখুঁত বাক্য দরকার নেই। রাগ, ভয়, কৃতজ্ঞতা, স্বপ্ন—সবই লেখা যায়।</p>
+ <div class="chips" id="starters"></div>
+ <div class="card">
+  <div class="fld"><label for="eT">লেখার নাম</label><input type="text" id="eT" placeholder="যেমন: আজ একটু ভারী লাগছে…"></div>
+  <div class="fld"><label for="eM">আজকের অনুভূতি</label><select id="eM"><option>মন খারাপ</option><option>অস্থির</option><option>ক্লান্ত</option><option>আশাবাদী</option><option>কৃতজ্ঞ</option><option>আনন্দিত</option><option>মিশ্র অনুভূতি</option></select></div>
+  <div class="fld"><label>স্টিকার</label><div class="stks" id="stks"></div></div>
+  <div class="fld"><label for="eX">মনের কথা</label><textarea id="eX" placeholder="প্রিয় ডায়েরি, আজ আমার মনে হচ্ছে…"></textarea></div>
+  <button class="btn f w" id="eSave">লেখাটা নিজের কাছে রাখি ♡</button><p class="mini" id="dfT" style="margin:8px 0 0;opacity:0;transition:opacity .4s"></p>
+  <p class="mini" style="margin-top:10px">লেখাগুলো শুধু এই ডিভাইসের এই অ্যাপেই থাকে। ব্রাউজারের ডেটা মুছলে লেখাও মুছে যেতে পারে—তাই মাঝে মাঝে কপি করে রেখো।</p>
+ </div>
+ <div class="card"><h3>আমার ছোট্ট ডায়েরি</h3><div id="entries"></div><button class="link" id="eExp">সব লেখা কপি / শেয়ার করি</button> <button class="link" <button class="link" id="pinBtn"></button> <button class="link" id="eClr">সব মুছে ফেলি</button></div>
+<div class="card"><h3>দোয়ার খাতা 🤲</h3><p class="sub">আজ আল্লাহর কাছে আমার মনের কথাগুলো… সাজানো বাক্য লাগবে না, নিজের ভাষাতেই লেখো।</p><div id="doaL"></div><p class="mini" id="doaH" style="margin:8px 0 0"></p></div>
+<div class="card"><h3>রাতের নিরিবিলি ডায়েরি 🌙</h3><p class="sub">দিনের সব কষ্ট এক রাতে মেটাতে হবে না—শুধু বুঝে নাও কী কষ্ট দিল, কোন চিন্তা আপাতত পাশে থাকবে, আর কাল নিজের জন্য কী ছোট্ট কাজ করবে।</p><div id="nightL"></div></div>
+</section>
+
+<section class="view" id="magic">
+ <h2>ছোট্ট জাদু ✦</h2><p class="sub">মন নরম করার কয়েকটা ছোট্ট খেলা।</p>
+ <div class="card" style="text-align:center"><h3>আজকের চিঠি</h3><p class="sub" style="margin-bottom:0">প্রতিদিন একটা নতুন চিঠি, শুধু তোমার জন্য।</p><button class="env" id="env" aria-label="চিঠি খোলো"><span class="flap"></span></button><p class="mini" id="envTxt">চিঠিটা খুলতে চাপো 💌</p><div class="letter" id="letter"></div></div>
+ <div class="card"><h3>কৃতজ্ঞতার বয়াম 🫙</h3><p class="sub">আজ যা ভালো লেগেছে, ছোট্ট করে লেখো। একটা আলো বয়ামে জমবে।</p><div class="jar" id="jar"></div><p class="mini" id="jCnt" style="text-align:center;margin:8px 0"></p><div style="display:flex;gap:8px"><input type="text" id="jI" placeholder="আজ কৃতজ্ঞ…"><button class="btn f" id="jBtn" aria-label="বয়ামে রাখো">＋</button></div><button class="link" id="jPick">একটা পুরনো ভালো মুহূর্ত বের করি</button> <button class="link" id="jLtr">💌 বয়ামের চিঠি</button></div>
+ <div class="card"><h3>চিন্তার বুদবুদ 🫧</h3><p class="sub">ফাটাও—প্রতিটা একটা নরম কথা বলবে।</p><div class="bub" id="bub"></div><p class="mini" id="bCnt" style="margin:8px 0 0">০টি ফাটানো হয়েছে</p></div>
+ <div class="card"><h3>শুভ রাত্রি মোড 🌙</h3><p class="sub">সব অন্ধকার হয়ে যাবে, আর ধীরে একটা ঘুমপাড়ানি সুর বাজবে। সময় হলে নিজে থেকে থেমে যাবে।</p><div class="chips" id="gnD" style="margin:0 0 12px;padding:0"><button class="chip" data-m="15">১৫ মিনিট</button><button class="chip sel" data-m="30">৩০ মিনিট</button><button class="chip" data-m="60">১ ঘণ্টা</button></div><button class="btn f w" id="gnBtn">ঘুমের সময় 🌙</button></div>
+<div class="card"><h3>সময়ের ক্যাপসুল 💌</h3><p class="sub">ভবিষ্যতের নিজের জন্য চিঠি লেখো। সময় না হওয়া পর্যন্ত সেটা বন্ধ থাকবে।</p><p class="mini" style="margin:0 0 6px">চাইলে আজকের ভয়, স্বপ্ন, অপূর্ণ ইচ্ছা, ভবিষ্যৎ পরিকল্পনা আর নিজের জন্য প্রতিশ্রুতি লিখে রাখতে পারো।</p><button class="link" id="cTpl">✎ চিঠির শুরুটা লিখে দাও</button><textarea id="cT" style="min-height:90px" placeholder="প্রিয় ভবিষ্যৎ আমি…"></textarea><div class="chips" id="cD" style="margin:10px 0;padding:0"><button class="chip sel" data-d="7">৭ দিন</button><button class="chip" data-d="30">৩০ দিন</button><button class="chip" data-d="90">৯০ দিন</button></div><p class="mini" style="margin:0 0 10px;font-style:italic">“তোমার জীবন অন্য কারও জীবনের সঙ্গে প্রতিযোগিতা নয়। তোমার নিজের গতিও গ্রহণযোগ্য।”</p><button class="btn f w" id="cBtn">ক্যাপসুলে বন্ধ করি 🔒</button><div id="cList" style="margin-top:8px"></div></div>
+<div class="card"><h3>বিশেষ দিন 🎂</h3><p class="sub">জন্মদিন বা প্রিয় কোনো দিন যোগ করো। ওইদিন অ্যাপ খুললে একটা ছোট্ট চমক অপেক্ষা করবে।</p><div class="fld"><input type="text" id="spL" placeholder="যেমন: জন্মদিন"></div><div class="fld"><input type="date" id="spD"></div><button class="btn f w" id="spB">যোগ করি ✨</button><div id="spL2" style="margin-top:8px"></div></div>
+<div class="card"><h3>নরম শব্দ 🎧</h3><p class="sub" style="margin-bottom:10px">চোখ বন্ধ করে একটু শোনো।</p><div class="chips" id="snd"><button class="chip" data-k="rain">🌧 বৃষ্টি</button><button class="chip" data-k="sea">🌊 ঢেউ</button><button class="chip" data-k="night">🌙 নিশুতি রাত</button><button class="chip" data-k="off">⏹ বন্ধ</button></div></div>
+<h3 style="margin:22px 2px 4px">গোপন জগৎ ☾</h3><p class="sub" style="margin-bottom:12px">একটু নীরবে, শুধু নিজের জন্য।</p>
+ <div class="card"><h3>তারার মানচিত্র ✦</h3><p class="sub">প্রতিটি তারা একটা দরজা। যেটাতে হাত রাখতে ইচ্ছে করে, সেটা বেছে নাও।</p><div class="stg" id="stGrid"></div><div class="comfort hide" id="stO" aria-live="polite"><strong id="stQ"></strong><button class="btn" id="stW" style="margin-top:12px">এই প্রশ্ন নিয়ে ডায়েরিতে লিখি →</button></div></div>
+ <div class="card"><h3>চিঠির ঘর ✉</h3><p class="sub">কিছু কথা মুখে বলা যায় না। একটা খাম বেছে নাও—তোমার জন্য কয়েকটা লাইন অপেক্ষা করছে।</p><div id="ltGrid"></div></div>
+ <div class="card"><h3>গোপন দরজা 🚪</h3><p class="sub" style="margin-bottom:6px">কোনো কোনো দরজা একটা শব্দে খোলে।</p><div class="chips" id="drC" style="margin:0 0 8px;padding:0"></div><p class="mini" id="drH" style="margin:0 0 10px"></p><div class="fld"><input type="text" id="drK" placeholder="একটা শব্দ…" autocomplete="off" autocapitalize="none" aria-label="গোপন শব্দ"></div><button class="btn f w" id="drB">দরজায় কড়া নাড়ি</button><div class="comfort hide" id="drO" aria-live="polite"></div></div>
+ <div class="card" style="text-align:center"><h3>ভাগ্য-কুকি 🥠</h3><p class="sub">কুকিটা ছুঁয়ে দাও, ভেঙে একটা ছোট্ট কাগজ বেরোবে।</p><button class="ck2" id="ckB" aria-label="কুকি">🥠</button><div class="slip" id="ckS"></div></div>
+ <div class="card" style="text-align:center"><h3>মোমবাতি 🕯️</h3><p class="sub">মনে মনে একটা ইচ্ছে করো, তারপর ফুঁ দাও।</p><div class="cdl" id="cdl"><i class="fl2"></i><b></b></div><button class="btn f w" id="cdB">ফুঁ দিই 🌬️</button><p class="mini" id="cdT" style="margin:8px 0 0"></p></div>
+ <div class="card"><h3>আজ নিজের জন্য একটুখানি 🕯️</h3><p class="sub">আজ আমার কী দরকার—বিশ্রাম, একটু সাহস, নাকি কাউকে নিজের কথা বলা?</p><button class="btn w" id="rtB">ছোট্ট রিচুয়াল দেখাও</button><div class="comfort hide" id="rtO" style="margin-top:12px" aria-live="polite"></div></div>
+</section>
+
+<section class="view" id="goals">
+ <h2>আমার স্বপ্ন, আমার গতিতে</h2><p class="sub">জীবন দৌড় নয়। আজ শুধু ছোট্ট একটা পদক্ষেপ।</p>
+ <div class="card"><h3>এই সপ্তাহে আমি চাই…</h3><div style="display:flex;gap:8px;margin:10px 0"><input type="text" id="gI" placeholder="যেমন: প্রতিদিন ১০ মিনিট লিখব"><button class="btn f" id="gSave" aria-label="যোগ করো">＋</button></div><div id="gList"></div></div>
+ <div class="card"><h3>নিজেকে মনে করিয়ে দাও</h3><div class="chk" id="rem" style="margin-top:8px"></div></div>
+ <div class="card"><h3>মৃদু রিমাইন্ডার 🔔</h3><p class="sub">রোজ একটা সময়ে নরম একটা কথা মনে করিয়ে দেব।</p><input type="time" id="rmT"><button class="btn f w" id="rmB" style="margin-top:10px"></button><p class="mini" style="margin-top:8px">সত্যিকারের নোটিফিকেশন পেতে অ্যাপটা নিজের হোস্টিং থেকে হোম স্ক্রিনে রাখতে হবে। এখানকার প্রিভিউতে শুধু অ্যাপ খোলা থাকলে মনে করাবে।</p></div>
+ <h3 style="margin:18px 2px 10px">ছোট্ট আনন্দ, মনে রাখার মতো</h3>
+ <div class="joys">
+  <div class="joy"><b>☕</b><h3>একটু আরাম</h3><p>গরম পানীয়, প্রিয় বই, কোনো তাড়া নেই।</p></div>
+  <div class="joy"><b>🌌</b><h3>আকাশ দেখা</h3><p>পৃথিবী আমার দুশ্চিন্তার চেয়ে বড়।</p></div>
+  <div class="joy"><b>🎧</b><h3>আমার সুর</h3><p>এমন গান, যা অনুভূতিকে জায়গা দেয়।</p></div>
+  <div class="joy"><b>🤍</b><h3>নিজের পাশে থাকা</h3><p>নিজের সঙ্গে একটু কোমলভাবে কথা বলি।</p></div>
+ </div>
+</section>
+</main>
+<nav id="nav">
+ <button class="on" data-go="home"><b>⌂</b>Home</button><button data-go="mood"><b>☾</b>Mood</button><button data-go="calm"><b>♡</b>Calm</button><button data-go="diary"><b>✎</b>Diary</button><button data-go="goals"><b>✧</b>Goals</button><button data-go="magic"><b>✦</b>Magic</button>
+</nav>
+</div>
+<div class="toast" id="toast" role="status"></div>
+<div class="bs hide" id="bs"><div class="bsb"><i id="bsO"></i></div><div class="lm" id="bsT"></div><div class="bar" style="width:240px"><div id="bsP"></div></div><button class="link" id="bsX">✕ থামাই</button></div>
+<div class="gn hide" id="gn"><div class="moon zz"><i class="eye l"></i><i class="eye r"></i><i class="ch l"></i><i class="ch r"></i><i class="mo"></i></div><div class="zs"><b>z</b><b>z</b><b>Z</b></div><div class="lm">ঘুমিয়ে পড়ো, মেঘলা ☾</div><p class="mini" id="gnT"></p><button class="link" id="gnX">জেগে উঠি</button></div>
+<div class="lock hide" id="lock"><div class="lm" id="lm"></div><div class="dots" id="dots"><i></i><i></i><i></i><i></i></div><div class="kp" id="kp"></div><button class="link" id="lcancel">বাদ দিই</button></div>
+<div class="sheet hide" id="wsheet"><div><h3>তারাকে ইচ্ছে বলো ☄</h3><p class="sub">যা মন থেকে চাও, লিখে ফেলো।</p><textarea id="wT" style="min-height:90px" placeholder="আমার ইচ্ছে…"></textarea><div style="display:flex;gap:10px;margin-top:12px"><button class="btn" id="wNo">থাক</button><button class="btn f" id="wGo" style="flex:1">তারা হয়ে উড়ে যাক ✨</button></div></div></div>
+<div class="sheet hide" id="sheet"><div><h3>হোম স্ক্রিনে রাখো</h3><p class="sub" id="sheetTxt"></p><button class="btn f w" id="sheetOk">ঠিক আছে</button></div></div>
+
+<script>
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+const rd=(k,f)=>{try{return JSON.parse(localStorage.getItem(k))??f}catch(e){return f}};
+const wr=(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v));return true}catch(e){toast('জায়গা পাওয়া যাচ্ছে না—লেখাটা কপি করে রাখো।');return false}};
+let tt;function toast(m){const t=$('#toast');t.textContent=m;t.classList.add('on');clearTimeout(tt);tt=setTimeout(()=>t.classList.remove('on'),2400)}
+const buzz=()=>{try{navigator.vibrate&&navigator.vibrate(12)}catch(e){}};
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const today=()=>new Date().toLocaleDateString('en-CA');
+const bn=n=>String(n).replace(/\d/g,d=>'০১২৩৪৫৬৭৮৯'[d]);
+$('#date').textContent=new Date().toLocaleDateString('bn-BD',{weekday:'long',day:'numeric',month:'long'});
+const h=new Date().getHours();$('#greet').textContent=h<5?'এত রাতে জেগে, মেঘলা?':h<12?'শুভ সকাল, মেঘলা ☀':h<17?'শুভ দুপুর, মেঘলা':h<20?'শুভ সন্ধ্যা, মেঘলা':'শুভ রাত্রি, মেঘলা ☾';
+
+/* tabs */
+function go(v){$$('.view').forEach(x=>x.classList.toggle('on',x.id===v));$$('#nav button').forEach(b=>b.classList.toggle('on',b.dataset.go===v));$('#main').scrollTop=0;if(v==='home')stats();buzz()}
+document.addEventListener('click',e=>{const g=e.target.closest('[data-go]');if(g)go(g.dataset.go)});
+
+/* living sky: mood-reactive */
+const cv=$('#sky'),cx=cv.getContext('2d'),RM=matchMedia('(prefers-reduced-motion: reduce)').matches,MODE={sad:'rain',lonely:'rain',angry:'ember',hopeful:'fly',happy:'fly'};
+let W,H,P=[],mode='stars',sh=null;
+function seed(){const n=mode==='rain'?90:mode==='stars'?75:45;P=[...Array(n)].map(()=>({x:Math.random()*W,y:Math.random()*H,r:Math.random()*1.4+.4,s:Math.random()*.6+.2,p:Math.random()*6}))}
+function rs(){W=cv.width=innerWidth;H=cv.height=innerHeight;seed()}
+function setMode(m){if(m!==mode){mode=m;seed()}}
+function draw(t){cx.clearRect(0,0,W,H);for(const p of P){
+if(mode==='stars'){cx.fillStyle=`rgba(243,221,188,${.25+.55*Math.abs(Math.sin(t/1300+p.p))})`;cx.beginPath();cx.arc(p.x,p.y,p.r,0,7);cx.fill()}
+else if(mode==='rain'){p.y+=p.s*14;p.x-=1.4;if(p.y>H){p.y=-20;p.x=Math.random()*W}cx.strokeStyle='rgba(170,190,225,.3)';cx.beginPath();cx.moveTo(p.x,p.y);cx.lineTo(p.x+2,p.y-12*p.s-6);cx.stroke()}
+else{const f=mode==='fly';p.x+=Math.sin(t/900+p.p)*.5;p.y-=p.s*(f?.3:.9);if(p.y<-10){p.y=H+10;p.x=Math.random()*W}cx.fillStyle=f?`rgba(255,226,140,${.3+.6*Math.abs(Math.sin(t/700+p.p))})`:`rgba(255,${110+p.s*120|0},60,${.7-p.s*.4})`;cx.shadowColor=f?'#ffd98a':'#ff7a3a';cx.shadowBlur=12;cx.beginPath();cx.arc(p.x,p.y,p.r+(f?.8:0),0,7);cx.fill();cx.shadowBlur=0}}
+if(mode==='stars'&&!sh&&Math.random()<.004)sh={x:Math.random()*W*.7,y:Math.random()*H*.35,v:0};
+if(sh){sh.x+=9;sh.y+=4.5;sh.v++;const g=cx.createLinearGradient(sh.x,sh.y,sh.x-90,sh.y-45);g.addColorStop(0,'rgba(255,240,210,.9)');g.addColorStop(1,'rgba(255,240,210,0)');cx.strokeStyle=g;cx.lineWidth=2;cx.beginPath();cx.moveTo(sh.x,sh.y);cx.lineTo(sh.x-90,sh.y-45);cx.stroke();if(sh.v>60)sh=null}
+if(!RM)requestAnimationFrame(draw)}
+addEventListener('resize',rs);rs();requestAnimationFrame(draw);
+/* moods */
+const M={
+sad:['🌧️','মন খারাপ','Heavy heart','তোমার কষ্টটাকে ছোট করে দেখার দরকার নেই।','এখনই সব ঠিক করতে হবে না। একটু পানি খাও, ধীরে শ্বাস নাও, আর চাইলে লিখে ফেলো—কী সবচেয়ে বেশি কষ্ট দিচ্ছে।'],
+anxious:['🌫️','অস্থির লাগছে','Overthinking','সব চিন্তার উত্তর এই মুহূর্তেই খুঁজতে হবে না।','চোখে দেখা ৫টি জিনিস, ছুঁতে পারো এমন ৪টি, শোনা যায় এমন ৩টি শব্দ খেয়াল করো। তারপর শুধু পরের ছোট পদক্ষেপটা বেছে নাও।'],
+tired:['🌙','ক্লান্ত','Need a pause','বিশ্রামও তোমার প্রয়োজন, প্রাপ্য।','আজ কাজের তালিকা ছোট করা যায়। কিছুক্ষণ শুয়ে থাকো, পানি খাও, নিজের কাছ থেকে একটু কম প্রত্যাশা করো।'],
+lonely:['🕯️','একা লাগা','Need warmth','একা লাগা মানে তুমি ভালোবাসার অযোগ্য নও।','বিশ্বাসের কাউকে শুধু লিখো “আজ একটু কথা বলতে ইচ্ছে করছে।” কাউকে না পেলে এখানে লিখে রাখো—তবে বাস্তব জীবনের সংযোগও জরুরি।'],
+angry:['🌋','রাগ / অভিমান','Need space','রাগ বা অভিমান থাকার জন্য নিজেকে দোষ দিও না।','এখনই উত্তর দিতে হবে না। একটু বিরতি নাও, কী আঘাত করেছে লিখে রাখো, শান্ত হলে ভেবে দেখো কী বলতে চাও।'],
+hopeful:['🌱','আশা আছে','Slowly growing','এই ছোট্ট আশাটুকুও মূল্যবান।','যা তোমাকে আশাবাদী করেছে, লিখে রাখো। কঠিন দিনে এই পাতা মনে করিয়ে দেবে যে অনুভূতি বদলায়।'],
+happy:['🌷','ভালো লাগছে','Keep this moment','এই মুহূর্তটাকে একটু যত্ন করে রেখে দাও।','আজ কী ভালো লাগছে লিখে রাখো—ছোট্ট সুখও স্মৃতি হওয়ার যোগ্য।'],
+numb:['☁️','কিছু অনুভব করছি না','Just here','কিছু অনুভব না করলেও কিছু প্রমাণ করতে হবে না।','নিজেকে জোর করে খুশি করার দরকার নেই। পা মাটিতে রাখো, পানি খাও, চারপাশের একটা জিনিস লক্ষ্য করো। এখানে থাকাই যথেষ্ট।']};
+$('#moods').innerHTML=Object.entries(M).map(([k,v])=>`<button class="mb" data-m="${k}"><span>${v[0]}</span>${v[1]}<small>${v[2]}</small></button>`).join('');
+let moods=rd('mlw-moods',[]);
+if(!moods.length){const o=rd('mlw-mood',null);if(o&&M[o.mood])moods=[{m:o.mood,d:(o.date||'').slice(0,10)}]}
+function showMood(k){setMode(MODE[k]||'stars');petMood(k);$$('.mb').forEach(x=>x.classList.toggle('sel',x.dataset.m===k));const v=M[k],r=$('#moodRes');r.innerHTML=`<strong>${v[3]}</strong><p>${v[4]}</p><button class="btn" id="m2d">ডায়েরিতে আরও লিখি →</button>`;r.classList.remove('hide');$('#m2d').onclick=()=>{$('#eT').value='আজ আমার মন: '+v[1];go('diary');$('#eX').focus()}}
+$('#moods').onclick=e=>{const b=e.target.closest('.mb');if(!b)return;const k=b.dataset.m;moods=moods.filter(x=>x.d!==today());moods.push({m:k,d:today()});wr('mlw-moods',moods.slice(-60));showMood(k);buzz();strip();calUI()};
+const lm=moods.find(x=>x.d===today());if(lm&&M[lm.m])showMood(lm.m);
+function strip(){const days=[...Array(7)].map((_,i)=>{const d=new Date();d.setDate(d.getDate()-6+i);return d.toLocaleDateString('en-CA')});$('#strip').innerHTML=days.map(d=>{const x=moods.find(m=>m.d===d);return x&&M[x.m]?`<span>${M[x.m][0]}</span>`:'<span class="e">·</span>'}).join('')}
+
+/* affirmations */
+const A=['“আজ কঠিন লাগছে বলে, সব দিন এমন থাকবে না।”','“আমি ধীরে এগোতে পারি; তবুও এগোচ্ছি।”','“আমার অনুভূতিগুলো সত্যি, আর আমিও যত্ন পাওয়ার যোগ্য।”','“সব উত্তর আজই জানতে হবে না।”','“একজনের সিদ্ধান্ত আমার পুরো মূল্য নির্ধারণ করে না।”','“আমি অতীত বদলাতে না পারলেও, নিজের পরের পদক্ষেপ বেছে নিতে পারি।”','“আমার বিশ্রাম দরকার হতে পারে—এতে আমি ব্যর্থ নই।”','“আশা ছোট হলেও, তাকে জায়গা দেওয়া যায়।”'];
+const pick=()=>A[Math.floor(Math.random()*A.length)];
+$('#homeAff').textContent=pick();$('#homeAffBtn').onclick=()=>{$('#homeAff').textContent=pick();buzz()};
+$('#affBtn').onclick=()=>{$('#aff').textContent=pick();buzz()};
+
+/* breathing */
+let br=false,bt=null;
+function bStop(txt,btn,sub){clearInterval(bt);br=false;$('#circle').className='circle';$('#circle').textContent=txt;$('#bText').textContent=sub;$('#bBtn').textContent=btn}
+$('#bBtn').onclick=()=>{if(br){bStop('প্রস্তুত? ♡','আবার শুরু করি','যখন ইচ্ছে আবার শুরু করো');return}br=true;let left=30;const c=$('#circle');$('#bBtn').textContent='থামাই';
+ const step=()=>{if(left<=0){bStop('ভালো করেছ ♡','আরেকবার','এখন নিজের কাছে ফিরে এসো');return}const inh=(30-left)%8<4;c.className='circle '+(inh?'in':'out');c.textContent=inh?'ধীরে শ্বাস নাও':'আস্তে ছাড়ো';$('#bText').textContent='আর '+bn(left)+' সেকেন্ড';if((30-left)%4===0)buzz();left--};step();bt=setInterval(step,1000)};
+
+/* self-care + reminders (saved) */
+const CARE=['এক গ্লাস পানি খাই','মুখ ধুয়ে একটু ফ্রেশ হই','জানালার পাশে ২ মিনিট বসি','বিশ্বাসের কাউকে একটা মেসেজ দিই','নিজেকে দোষ দেওয়া একটু থামাই'];
+const REM=['বিশ্রাম নেওয়া অলসতা নয়।','অন্যের সময়রেখার সঙ্গে নিজের জীবন মাপব না।','সাহায্য চাওয়া দুর্বলতা নয়।','ছোট্ট অগ্রগতিও অগ্রগতি।','আমার মূল্য কোনো একজনের সিদ্ধান্তে নির্ধারিত হয় না।'];
+let care=rd('mlw-care',{d:'',c:[]});if(care.d!==today())care={d:today(),c:[]};
+let rem=rd('mlw-rem',[]);
+const lst=(id,arr,st,key)=>{$(id).innerHTML=arr.map((t,i)=>`<label><input type="checkbox" data-i="${i}" ${st[i]?'checked':''}>${t}</label>`).join('')};
+lst('#care',CARE,care.c);lst('#rem',REM,rem);
+function careUI(){const n=CARE.filter((_,i)=>care.c[i]).length;$('#careBar').style.width=n/CARE.length*100+'%';$('#careCnt').textContent=bn(n)+' / '+bn(CARE.length)+'টি ছোট যত্ন'}careUI();
+$('#care').onchange=e=>{care.c[+e.target.dataset.i]=e.target.checked;wr('mlw-care',care);careUI();buzz();if(CARE.every((_,i)=>care.c[i])){petals();toast('আজ নিজের অনেক যত্ন নিলে 🌸')}};
+$('#rem').onchange=e=>{rem[+e.target.dataset.i]=e.target.checked;wr('mlw-rem',rem)};
+
+/* prompts + story starters */
+const PR=['আজ আমার সবচেয়ে বেশি কষ্ট হচ্ছে কারণ…','যে কথাটা কাউকে বলতে পারিনি…','এই মুহূর্তে আমার দরকার…','নিজের জন্য আজ আমি যে ছোট্ট কাজটা করতে পারি…'];
+let cp='';$('#prompts').innerHTML=PR.map(p=>`<button class="pr">${p}</button>`).join('');
+$('#prompts').onclick=e=>{const b=e.target.closest('.pr');if(!b)return;cp=b.textContent;$$('.pr').forEach(x=>x.classList.toggle('sel',x===b));buzz()};
+$('#sendPrompt').onclick=()=>{if(!cp){toast('আগে একটি প্রশ্ন বেছে নাও।');return}$('#eX').value=($('#eX').value?$('#eX').value+'\n\n':'')+cp+'\n';go('diary');$('#eX').focus()};
+const ST=[['✎ গল্পের খাতা','গল্পের খাতা','আমার গল্পের আইডিয়া:\nচরিত্র:\nঘটনা:\nযে অনুভূতিটা রাখতে চাই:'],['☾ না-বলা কথা','না-বলা কথা','যদি নির্ভয়ে সব বলতে পারতাম, তাহলে বলতাম…'],['🌷 সুন্দর স্মৃতি','সুন্দর স্মৃতির বাক্স','আজকের একটা ছোট্ট সুন্দর মুহূর্ত:\nএটা মনে রাখতে চাই কারণ:']];
+$('#starters').innerHTML=ST.map((s,i)=>`<button class="chip" data-s="${i}">${s[0]}</button>`).join('');
+$('#starters').onclick=e=>{const b=e.target.closest('.chip');if(!b)return;const s=ST[b.dataset.s];$('#eT').value=s[1];$('#eX').value=s[2];$('#eX').focus();buzz()};
+
+/* diary */
+function entries(){const es=rd('mlw-entries',[]);$('#entries').innerHTML=es.length?es.map((e,i)=>`<div class="en" style="--mc:${MC[e.mood]||'#c79a9c'}"><span class="stk">${e.s||''}</span><h4>${esc(e.title||'আজকের পাতা')}</h4><div class="mini">${esc(e.mood)} · ${esc(e.date)}</div><p>${esc(e.text)}</p><button class="link" data-del="${i}">মুছি</button></div>`).reverse().join(''):'<p class="mini">এখনো কোনো লেখা নেই—প্রথম পাতাটা তোমার জন্য অপেক্ষা করছে।</p>';stats()}
+$('#entries').onclick=e=>{const b=e.target.closest('[data-del]');if(!b)return;if(!confirm('এই লেখাটা মুছে ফেলবে?'))return;const a=rd('mlw-entries',[]);a.splice(+b.dataset.del,1);wr('mlw-entries',a);entries();toast('লেখাটা মুছে ফেলা হয়েছে।')};
+$('#eSave').onclick=()=>{const t=$('#eX').value.trim();if(!t){toast('আগে মনের কথাটা লিখে নাও।');$('#eX').focus();return}const a=rd('mlw-entries',[]);a.push({title:$('#eT').value.trim()||'আজকের পাতা',mood:$('#eM').value,text:t,s:sk,ts:Date.now(),date:new Date().toLocaleDateString('bn-BD')});if(wr('mlw-entries',a)){sk='';stkUI();wr('mlw-draft',{});$('#dfT').style.opacity=0;$('#eT').value='';$('#eX').value='';entries();buzz();toast('তোমার পাতাটা রাখা হয়েছে ♡')}};
+$('#eExp').onclick=async()=>{const a=rd('mlw-entries',[]);if(!a.length){toast('রাখার মতো লেখা এখনো নেই।');return}const txt=a.map(e=>`# ${e.title}\n${e.date} · ${e.mood}\n\n${e.text}`).join('\n\n--------------------\n\n');try{if(navigator.share){await navigator.share({title:'Meghla-র ডায়েরি',text:txt});return}await navigator.clipboard.writeText(txt);toast('সব লেখা কপি হয়েছে ♡')}catch(e){toast('কপি করা যায়নি—আবার চেষ্টা করো।')}};
+
+/* goals */
+function goals(){const g=rd('mlw-goals',[]);$('#gList').innerHTML=g.length?g.map((x,i)=>`<div class="row ${x.done?'d':''}"><label class="chk"><input type="checkbox" data-g="${i}" ${x.done?'checked':''}><span>${esc(x.text)}</span></label><button class="link" data-gd="${i}">মুছি</button></div>`).join(''):'<p class="mini">তোমার ছোট্ট লক্ষ্যগুলো এখানে থাকবে।</p>';stats()}
+$('#gList').onchange=e=>{const i=e.target.dataset.g;if(i==null)return;const a=rd('mlw-goals',[]);a[+i].done=e.target.checked;if(e.target.checked)petals(14);wr('mlw-goals',a);goals();buzz()};
+$('#gList').onclick=e=>{const i=e.target.dataset.gd;if(i==null)return;const a=rd('mlw-goals',[]);a.splice(+i,1);wr('mlw-goals',a);goals()};
+$('#gSave').onclick=()=>{const v=$('#gI').value.trim();if(!v){toast('একটা ছোট্ট লক্ষ্য লিখে নাও।');return}const a=rd('mlw-goals',[]);a.push({text:v,done:false});wr('mlw-goals',a);$('#gI').value='';goals();buzz();toast('লক্ষ্যটা রাখা হয়েছে ✧')};
+$('#gI').addEventListener('keydown',e=>{if(e.key==='Enter')$('#gSave').click()});
+
+function stats(){$('#sEntries').textContent=bn(rd('mlw-entries',[]).length);$('#sCare').textContent=bn(CARE.filter((_,i)=>care.c[i]).length)+'/'+bn(CARE.length);$('#sGoals').textContent=bn(rd('mlw-goals',[]).filter(x=>x.done).length)}
+
+/* home-screen install */
+const standalone=matchMedia('(display-mode: standalone)').matches||navigator.standalone;
+(function(){const c=document.createElement('canvas');c.width=c.height=180;const x=c.getContext('2d');const g=x.createLinearGradient(0,0,180,180);g.addColorStop(0,'#2b2a4a');g.addColorStop(.6,'#5d4156');g.addColorStop(1,'#b98468');x.fillStyle=g;x.fillRect(0,0,180,180);x.fillStyle='#f3d7aa';x.shadowColor='#f3d7aa';x.shadowBlur=24;x.font='96px serif';x.textAlign='center';x.textBaseline='middle';x.fillText('☾',90,92);try{$('#touchIcon').href=c.toDataURL('image/png')}catch(e){}})();
+let dp=null;window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();dp=e});
+if(standalone)$('#instBtn').classList.add('hide');
+$('#instBtn').onclick=async()=>{if(dp){dp.prompt();dp=null;return}const ios=/iphone|ipad|ipod/i.test(navigator.userAgent);$('#sheetTxt').innerHTML=ios?'<ol><li>Safari-তে নিচের <b>Share ⎋</b> বাটনে চাপো</li><li><b>Add to Home Screen</b> বেছে নাও</li><li><b>Add</b> চাপলেই Meghla আইকন হোম স্ক্রিনে চলে আসবে ☾</li></ol>':'<ol><li>Chrome-এর উপরে ডানে <b>⋮ মেনু</b> খোলো</li><li><b>Add to Home screen</b> (বা Install app) চাপো</li><li><b>Add</b> চাপলেই হোম স্ক্রিনে Meghla আইকন চলে আসবে ☾</li></ol>';$('#sheet').classList.remove('hide')};
+$('#sheetOk').onclick=()=>$('#sheet').classList.add('hide');
+$('#sheet').onclick=e=>{if(e.target.id==='sheet')e.target.classList.add('hide')};
+
+/* wish sky */
+let wishes=rd('mlw-wishes',[]);const wpos=i=>[(i*37)%84+8,(i*53)%66+12];
+function wsky(){$('#wsky').innerHTML=wishes.length?wishes.map((w,i)=>{const [a,b]=wpos(i);return `<button class="ws" data-w="${i}" aria-label="ইচ্ছে" style="left:${a}%;top:${b}%;animation-delay:${i%5*.5}s">✦</button>`}).join(''):'<p class="mini" style="padding:76px 0;text-align:center">আকাশটা এখনো খালি…</p>'}
+$('#wishBtn').onclick=()=>{$('#wsheet').classList.remove('hide');$('#wT').focus()};
+$('#wNo').onclick=()=>$('#wsheet').classList.add('hide');
+$('#wsheet').onclick=e=>{if(e.target.id==='wsheet')e.target.classList.add('hide')};
+$('#wsky').onclick=e=>{const b=e.target.closest('[data-w]');if(b)toast('✨ '+wishes[b.dataset.w].t)};
+$('#wGo').onclick=()=>{const t=$('#wT').value.trim();if(!t){toast('আগে ইচ্ছেটা লেখো।');return}$('#wsheet').classList.add('hide');$('#wT').value='';const i=wishes.length,[px,py]=wpos(i),r=$('#wsky').getBoundingClientRect(),tx=r.left+r.width*px/100,ty=r.top+r.height*py/100,sx=innerWidth/2,sy=innerHeight-120,f=document.createElement('div');f.className='fly';document.body.appendChild(f);buzz();const a=f.animate([{transform:`translate(${sx}px,${sy}px) scale(1.6)`},{transform:`translate(${(sx+tx)/2-120}px,${(sy+ty)/2}px) scale(1)`,offset:.5},{transform:`translate(${tx}px,${ty}px) scale(.5)`,opacity:.3}],{duration:1900,easing:'ease-in-out'});a.onfinish=()=>{f.remove();wishes.push({t,d:today()});wr('mlw-wishes',wishes);wsky();buzz();toast('তারাটা আকাশে রয়ে গেল ✨')}};
+/* release ritual */
+$('#relBtn').onclick=()=>{const t=$('#rel').value.trim();if(!t){toast('আগে যা ভারী লাগছে লিখে নাও।');return}const L=document.createElement('div');L.className='rel';const r=$('#rel').getBoundingClientRect();t.split(/\s+/).slice(0,40).forEach((w,i)=>{const s=document.createElement('span');s.textContent=w;s.style.cssText=`left:${Math.min(r.left+(i%6)*60,innerWidth-80)}px;top:${r.top+Math.floor(i/6)*28+10}px;--dx:${Math.random()*160-80}px;--r:${Math.random()*40-20}deg;animation-delay:${i*50}ms`;L.appendChild(s)});document.body.appendChild(L);$('#rel').value='';buzz();setTimeout(()=>{L.remove();toast('ছেড়ে দিয়েছ। এটা আর কোথাও নেই ☁')},5800)};
+/* magic */
+function petals(n=26){const c=document.createElement('div');c.className='pt';for(let i=0;i<n;i++){const s=document.createElement('span');s.textContent=['🌸','🌷','✨'][i%3];s.style.cssText=`left:${Math.random()*100}%;font-size:${16+Math.random()*14}px;animation-duration:${3+Math.random()*2.5}s;animation-delay:${Math.random()*.9}s;--dx:${Math.random()*120-60}px`;c.appendChild(s)}document.body.appendChild(c);setTimeout(()=>c.remove(),6800)}
+const LT=['তুমি যতটা ভাবো, তার চেয়ে অনেক বেশি পথ হেঁটে এসেছ। আজ একটু থেমে নিজের পিঠ চাপড়ে দাও।','আজ যদি শুধু টিকে থাকতে পারো, সেটাই আজকের জয়। বাকিটা কাল।','তোমার মতো করে কেউ ভাবে না, কেউ অনুভব করে না—এটাই তোমার শক্তি।','যে কঠিন সময়টা পেরিয়ে এসেছ, মনে রেখো, তখনও তুমি হাল ছাড়োনি।','আজ একটা ছোট্ট ভালো কিছু ঘটবে—হয়তো এক কাপ চা, হয়তো একটা হাসি। চোখ খোলা রেখো।','নিজের সঙ্গে সেভাবে কথা বলো, যেভাবে প্রিয় বন্ধুর সঙ্গে বলো।','ফুল ফুটতে সময় নেয়। তুমিও নিচ্ছ, আর সেটা একদম ঠিক আছে।'];
+const doy=Math.floor((new Date()-new Date(new Date().getFullYear(),0,0))/864e5);
+$('#env').onclick=()=>{const o=$('#env').classList.toggle('open');$('#letter').textContent=o?LT[doy%LT.length]:'';$('#letter').classList.toggle('on',o);$('#envTxt').textContent=o?'আজকের চিঠি, শুধু তোমার জন্য 💌':'চিঠিটা খুলতে চাপো 💌';buzz();if(o)petals(10)};
+let jar=rd('mlw-jar',[]);
+function jarUI(d){const v=jar.slice(-30),o=jar.length-v.length;$('#jar').innerHTML=v.map((j,i)=>`<button class="mb2${d&&i===v.length-1?' drop':''}" data-j="${o+i}" aria-label="স্মৃতি" style="left:${(i%5)*18+7}%;bottom:${Math.floor(i/5)*24+6}px;background:hsl(${i*47+20},62%,72%)"></button>`).join('');$('#jCnt').textContent=jar.length?bn(jar.length)+'টি ভালো মুহূর্ত জমেছে':'বয়ামটা এখনো খালি—প্রথম আলোটা রাখো।'}
+$('#jBtn').onclick=()=>{const t=$('#jI').value.trim();if(!t){toast('আজ কী ভালো লেগেছে, ছোট্ট করে লেখো।');return}jar.push({t,d:today()});wr('mlw-jar',jar);$('#jI').value='';jarUI(true);buzz();toast('বয়ামে একটা আলো জমল ✨')};
+$('#jI').addEventListener('keydown',e=>{if(e.key==='Enter')$('#jBtn').click()});
+$('#jar').onclick=e=>{const b=e.target.closest('[data-j]');if(b)toast('🫙 '+jar[b.dataset.j].t)};
+$('#jPick').onclick=()=>{if(!jar.length){toast('আগে বয়ামে একটা ভালো মুহূর্ত রাখো।');return}toast('🫙 '+jar[Math.floor(Math.random()*jar.length)].t)};
+const BM=['তুমি যথেষ্ট ভালো করছ।','একটা লম্বা শ্বাস নাও।','এই চিন্তাটা চিরকাল থাকবে না।','নিজেকে ক্ষমা করো।','তুমি একা নও।','ছোট্ট পদক্ষেপও পদক্ষেপ।','তোমার অনুভূতিগুলো সত্যি।','আজ শুধু এটুকুই যথেষ্ট।'];let bc=0;
+setInterval(()=>{const z=$('#bub');if(!$('#magic').classList.contains('on')||z.children.length>7)return;const b=document.createElement('button'),s=36+Math.random()*34;b.className='bb';b.setAttribute('aria-label','বুদবুদ');b.style.cssText=`width:${s}px;height:${s}px;left:${Math.random()*(z.clientWidth-s)}px;animation-duration:${6+Math.random()*5}s`;b.onanimationend=()=>b.remove();z.appendChild(b)},900);
+$('#bub').onclick=e=>{const b=e.target.closest('.bb');if(!b||b.classList.contains('pop'))return;b.classList.add('pop');bc++;$('#bCnt').textContent=bn(bc)+'টি ফাটানো হয়েছে';toast(BM[Math.floor(Math.random()*BM.length)]);buzz()};
+let AC,SN,sI;
+function snd(k){try{SN&&SN.stop()}catch(e){}SN=null;clearInterval(sI);$$('#snd .chip').forEach(c=>c.classList.toggle('sel',c.dataset.k===k&&k!=='off'));if(k==='off')return;try{AC=AC||new(window.AudioContext||window.webkitAudioContext)();AC.resume();const b=AC.createBuffer(1,AC.sampleRate*3,AC.sampleRate),d=b.getChannelData(0);let l=0;for(let i=0;i<d.length;i++){const w=Math.random()*2-1;l=(l+.02*w)/1.02;d[i]=k==='rain'?w*.5:l*3.5}SN=AC.createBufferSource();SN.buffer=b;SN.loop=true;const f=AC.createBiquadFilter(),g=AC.createGain();f.type=k==='rain'?'highpass':'lowpass';f.frequency.value=k==='rain'?1800:k==='sea'?600:220;g.gain.value=.3;SN.connect(f);f.connect(g);g.connect(AC.destination);SN.start();if(k==='sea')sI=setInterval(()=>{g.gain.value=.18+.16*Math.sin(Date.now()/2300)},100)}catch(e){toast('এই ডিভাইসে শব্দ চালানো যাচ্ছে না।')}}
+$('#snd').onclick=e=>{const c=e.target.closest('.chip');if(c)snd(c.dataset.k)};
+/* sweet extras */
+const PS=['তুমি আমার প্রিয় মানুষ 🥹','আজ তোমাকে খুব সুন্দর লাগছে!','পানি খেয়েছ তো? 💧','তুমি দারুণ করছ, সত্যিই।','আমি সবসময় পাশে আছি ☾','একটা বড় শ্বাস নাও… আমার সঙ্গে!','তোমার হাসিটা আমার সবচেয়ে প্রিয় ✨','আজ একটু বিশ্রাম নাও, কেমন?'];let pc=0;
+function petMood(k){$('#pet .moon').classList.toggle('sad',['sad','lonely','tired','numb','anxious'].includes(k));$('#petSay').textContent=({sad:'আজ মন খারাপ? আমি আছি পাশে 🫂',lonely:'তুমি একা নও, আমি আছি ☾',tired:'আজ একটু আস্তে চলো, কেমন?',anxious:'আমার সঙ্গে একটা বড় শ্বাস নাও…',angry:'রাগ করলেও আমি তোমার পাশেই আছি',happy:'ইয়ে! তোমার খুশিতে আমিও খুশি 🌷',hopeful:'আশাটা ধরে রাখো, আমি আছি ✨'})[k]||'আমি এখানেই আছি, মেঘলা।'}
+$('#pet').onclick=e=>{pc++;const m=$('#pet .moon');m.classList.remove('jump');void m.offsetWidth;m.classList.add('jump');m.onanimationend=ev=>{if(ev.animationName==='jmp')m.classList.remove('jump')};$('#petSay').textContent=pc%10===0?'তুমি আমার সবচেয়ে প্রিয় মানুষ 🥹':PS[Math.floor(Math.random()*PS.length)];buzz();for(let i=0;i<5;i++){const s=document.createElement('span');s.className='hrt';s.textContent='💗';s.style.cssText=`left:${e.clientX-8+Math.random()*30-15}px;top:${e.clientY-8}px;animation-delay:${i*90}ms;--dx:${Math.random()*80-40}px`;document.body.appendChild(s);setTimeout(()=>s.remove(),1800)}};
+function calUI(){const n=new Date(),y=n.getFullYear(),mo=n.getMonth(),f=new Date(y,mo,1).getDay(),dm=new Date(y,mo+1,0).getDate();let h=['র','সো','ম','বু','বৃ','শু','শ'].map(x=>`<span class="h">${x}</span>`).join('')+'<span></span>'.repeat(f),c=0;for(let d=1;d<=dm;d++){const k=new Date(y,mo,d).toLocaleDateString('en-CA'),x=moods.find(m=>m.d===k),ok=x&&M[x.m];if(ok)c++;h+=`<span class="${d===n.getDate()?'t':''}${ok?'':' n'}">${ok?M[x.m][0]:bn(d)}</span>`}$('#cal').innerHTML=h;$('#calT').textContent=n.toLocaleDateString('bn-BD',{month:'long',year:'numeric'});$('#calN').textContent=c?bn(c)+'টি দিনের মন লেখা আছে ♡':'দিন শেষে মনটা একবার বেছে নিলেই এখানে জমতে থাকবে।'}
+function pop(h,t){const s=document.createElement('div');s.className='sheet';s.innerHTML=`<div><h3>${h}</h3><p style="white-space:pre-wrap;color:#e6dbd2">${esc(t)}</p><button class="btn f w">ঠিক আছে ♡</button></div>`;s.onclick=e=>{if(e.target===s||e.target.tagName==='BUTTON')s.remove()};document.body.appendChild(s)}
+let caps=rd('mlw-caps',[]),cd=7;
+function capUI(){$('#cList').innerHTML=caps.map((c,i)=>{const dl=Math.ceil((c.o-Date.now())/864e5);return dl>0?`<div class="row"><span style="flex:1">🔒 ${bn(dl)} দিন পর খুলবে</span></div>`:`<div class="row"><span style="flex:1">💌 ${esc(c.t.slice(0,22))}…</span><button class="link" data-c="${i}">খোলো</button><button class="link" data-cd="${i}">মুছি</button></div>`}).join('')}
+$('#cD').onclick=e=>{const b=e.target.closest('.chip');if(!b)return;cd=+b.dataset.d;$$('#cD .chip').forEach(x=>x.classList.toggle('sel',x===b))};
+$('#cBtn').onclick=()=>{const t=$('#cT').value.trim();if(!t){toast('আগে ভবিষ্যতের নিজেকে কিছু লেখো।');return}caps.push({t,c:Date.now(),o:Date.now()+cd*864e5});wr('mlw-caps',caps);$('#cT').value='';capUI();buzz();petals(12);toast('ক্যাপসুল বন্ধ হলো। সময় হলে খুলো 🔒')};
+$('#cList').onclick=e=>{const o=e.target.dataset.c,d=e.target.dataset.cd;if(o!=null){const c=caps[+o];pop('ভবিষ্যৎ-এর চিঠি 💌 · '+new Date(c.c).toLocaleDateString('bn-BD'),c.t);petals(14)}if(d!=null&&confirm('এই চিঠিটা মুছে ফেলবে?')){caps.splice(+d,1);wr('mlw-caps',caps);capUI()}};
+let pin=rd('mlw-pin',''),buf='',lmo='',tmp='';
+$('#kp').innerHTML=['1','2','3','4','5','6','7','8','9','','0','b'].map(k=>k?`<button data-k="${k}">${k==='b'?'⌫':k}</button>`:'<i></i>').join('');
+function dots(){$$('#dots i').forEach((d,i)=>d.classList.toggle('on',i<buf.length))}
+function lockOpen(m,msg){lmo=m;buf='';tmp='';dots();$('#lm').textContent=msg;$('#lcancel').classList.toggle('hide',m==='unlock');$('#lock').classList.remove('hide')}
+function pinUI(){$('#pinBtn').textContent=pin?'🔓 PIN বন্ধ করি':'🔒 অ্যাপে PIN দিই'}
+$('#kp').onclick=e=>{const b=e.target.closest('button');if(!b)return;buzz();const k=b.dataset.k;if(k==='b')buf=buf.slice(0,-1);else if(buf.length<4)buf+=k;dots();if(buf.length<4)return;setTimeout(()=>{const v=buf;buf='';dots();const L=$('#lock');if(lmo==='unlock'||lmo==='off'){if(v===pin){if(lmo==='off'){pin='';wr('mlw-pin','');toast('PIN বন্ধ করা হয়েছে')}L.classList.add('hide');pinUI()}else{$('#lm').textContent='ভুল PIN, আবার চেষ্টা করো';L.classList.remove('sk');void L.offsetWidth;L.classList.add('sk')}}else if(lmo==='set'){tmp=v;lmo='conf';$('#lm').textContent='আবার একবার দাও'}else if(v===tmp){pin=v;wr('mlw-pin',pin);L.classList.add('hide');pinUI();toast('PIN দেওয়া হয়েছে 🔒')}else{lmo='set';$('#lm').textContent='মেলেনি, নতুন করে দাও'}},180)};
+$('#lcancel').onclick=()=>$('#lock').classList.add('hide');
+$('#pinBtn').onclick=()=>pin?lockOpen('off','বন্ধ করতে বর্তমান PIN দাও'):lockOpen('set','নতুন ৪ সংখ্যার PIN দাও');
+if(pin)lockOpen('unlock','স্বাগতম, মেঘলা ♡ PIN দাও');pinUI();
+/* messages + body-scan + good night + report */
+const MP={'সাহস':['তুমি যতটা ভাবো, তার চেয়ে অনেক বেশি সাহসী।','ভয় পেলেও এগিয়ে যাওয়াটাই আসল সাহস।','আজ একটা ছোট্ট কাজ করো, যেটার জন্য কাল গর্ব হবে।','পড়ে গেলে ঠিক আছে, ওঠার শক্তি তোমার ভেতরেই আছে।','অনেক ঝড় পেরিয়ে এসেছো; এটাও পেরোবে।','নিজের ওপর বিশ্বাসটা একটু একটু করে ফিরিয়ে আনো।','তোমার স্বপ্ন ছোট নয়, শুধু সময় লাগছে।'],'ভালোবাসা':['তুমি ভালোবাসা পাওয়ার যোগ্য, ঠিক যেমন আছ।','নিজেকে সেভাবে ভালোবাসো, যেভাবে চাও কেউ তোমাকে বাসুক।','তোমার হাসিতে কারও দিন সুন্দর হয়ে যায়।','তুমি কারও না কারও কাছে পুরো পৃথিবী।','নিজের ভুলগুলোকেও একটু আদর করো।','তোমার কোমল মনটা দুর্বলতা নয়, শক্তি।','আজ নিজেকে একটা বড় আলিঙ্গন পাঠাও 🤍'],'আশা':['সব রাতের পরেই সকাল আসে।','আজকের অন্ধকার চিরদিন থাকবে না।','ভালো কিছু আসছে, ধৈর্য ধরো।','প্রতিটা শেষ আসলে নতুন শুরুর দরজা।','তারারা অন্ধকারেই সবচেয়ে সুন্দর জ্বলে।','তোমার গল্পের সেরা অধ্যায় এখনো লেখা হয়নি।','ছোট্ট আশাও একদিন বড় আলো হয়।'],'বিশ্রাম':['থামো, শ্বাস নাও—পৃথিবী একটু অপেক্ষা করতে পারে।','বিশ্রাম মানে হার নয়, নতুন করে শক্তি জমানো।','আজ সব না পারলেও তুমি যথেষ্ট।','ঘুম, পানি আর একটু হাসি—এটুকুই আজকের ওষুধ।','নিজের সঙ্গে কোমল হও, আজ বিশেষ করে।','কাজ কাল হবে, তুমি আজ নরম থাকো।','এক কাপ চা আর নিস্তব্ধতা—মাঝে মাঝে এটুকুই দরকার।']};
+let mk='সাহস';$('#mpC').innerHTML=Object.keys(MP).map((k,i)=>`<button class="chip${i?'':' sel'}" data-k="${k}">${k}</button>`).join('');
+function mpShow(){const a=MP[mk],m=$('#mpM');m.classList.remove('on');setTimeout(()=>{const q=a[Math.floor(Math.random()*a.length)];m.style.fontSize=q.length>110?'19px':q.length>60?'22px':'';m.textContent='“'+q+'”';m.classList.add('on')},200)}
+$('#mpC').onclick=e=>{const b=e.target.closest('.chip');if(!b)return;mk=b.dataset.k;$$('#mpC .chip').forEach(x=>x.classList.toggle('sel',x===b));mpShow();buzz()};$('#mpB').onclick=()=>{mpShow();buzz()};mpShow();
+const ALL=[...Object.values(MP).flat().map(x=>'“'+x+'”'),...A];
+setInterval(()=>{if(!$('#home').classList.contains('on'))return;const e=$('#homeAff');e.style.opacity=0;setTimeout(()=>{e.textContent=ALL[Math.floor(Math.random()*ALL.length)];e.style.opacity=1},500)},9000);
+const BS=['চোখ বন্ধ করো। পায়ের পাতা দুটোর দিকে মন দাও—ওগুলো ভারী আর নরম হয়ে যাচ্ছে।','এবার পায়ের ডিম আর হাঁটু। যেখানে টান লাগছে, সেখানে ধীরে শ্বাস পাঠাও।','উরু আর কোমর ঢিলে হয়ে যাক। বিছানা তোমাকে ধরে রেখেছে।','পেটটা নরম হতে দাও। শ্বাসের সঙ্গে ওঠানামা টের পাও।','বুকের ভেতরটা খেয়াল করো। যা ভারী লাগছে, নিশ্বাসের সঙ্গে একটু একটু বেরিয়ে যাক।','কাঁধ নামিয়ে দাও, হাত আর আঙুলগুলো ঢিলে করো।','চোয়াল, কপাল আর চোখের চারপাশ আলগা করো। মুখে হালকা হাসি আসুক।','এবার পুরো শরীরটা একসঙ্গে অনুভব করো। তুমি নিরাপদ, তুমি শান্ত।'];let bsT=null;
+function bsStop(){clearInterval(bsT);window.speechSynthesis&&speechSynthesis.cancel();$('#bs').classList.add('hide')}
+$('#bsBtn').onclick=()=>{$('#bs').classList.remove('hide');let i=0;const run=()=>{const t=$('#bsT');t.style.animation='none';void t.offsetWidth;t.style.animation='';if(i>=BS.length){clearInterval(bsT);t.textContent='ভালো করেছ ♡ ধীরে চোখ খোলো, নিজের কাছে ফিরে এসো।';$('#bsP').style.width='100%';say('ভালো করেছ। ধীরে চোখ খোলো।');$('#bsO').style.bottom='50%';return}t.textContent=BS[i];say(BS[i]);$('#bsO').style.bottom=(4+i*12.5)+'%';$('#bsP').style.width=(i/BS.length*100)+'%';buzz();i++};run();bsT=setInterval(run,13000)};
+$('#bsX').onclick=bsStop;
+let LU=null,gm=30,gI,GL=['আজ যা করেছ, তা যথেষ্ট ♡','কাল নতুন একটা দিন আসছে ✨','শ্বাস ধীরে… আর ঘুম আসছে','তুমি নিরাপদ, তুমি ভালো আছ','সব চিন্তা কালকের জন্য তোলা থাক'];
+function lullStop(){if(LU){clearInterval(LU.t);clearTimeout(LU.k);try{LU.g.disconnect()}catch(e){}LU=null}}
+function lullStart(min){lullStop();AC=AC||new(window.AudioContext||window.webkitAudioContext)();AC.resume();const g=AC.createGain(),dl=AC.createDelay(),fb=AC.createGain();g.gain.setValueAtTime(.0001,AC.currentTime);g.gain.linearRampToValueAtTime(.3,AC.currentTime+4);dl.delayTime.value=.5;fb.gain.value=.4;g.connect(AC.destination);g.connect(dl);dl.connect(fb);fb.connect(dl);dl.connect(AC.destination);const F=[261.63,293.66,329.63,392,440,523.25],P=[0,2,4,2,5,4,2,1,0,2,3,2,4,2,1,0];let i=0;const note=()=>{const o=AC.createOscillator(),e=AC.createGain();o.type='triangle';o.frequency.value=F[P[i++%P.length]];e.gain.setValueAtTime(.0001,AC.currentTime);e.gain.linearRampToValueAtTime(.5,AC.currentTime+.08);e.gain.exponentialRampToValueAtTime(.001,AC.currentTime+2.4);o.connect(e);e.connect(g);o.start();o.stop(AC.currentTime+2.5)};note();LU={g,t:setInterval(note,1500),k:setTimeout(()=>{g.gain.linearRampToValueAtTime(.0001,AC.currentTime+8);setTimeout(gnExit,8500)},min*60000)}}
+function gnExit(){lullStop();clearInterval(gI);$('#gn').classList.add('hide')}
+$('#gnD').onclick=e=>{const b=e.target.closest('.chip');if(b){gm=+b.dataset.m;$$('#gnD .chip').forEach(x=>x.classList.toggle('sel',x===b))}};
+$('#gnBtn').onclick=()=>{snd('off');$('#gn').classList.remove('hide');try{lullStart(gm)}catch(e){toast('ঘুমের সুর চালানো যাচ্ছে না।')}try{navigator.wakeLock&&navigator.wakeLock.request('screen').catch(()=>{})}catch(e){}let i=0;const t=()=>{$('#gnT').textContent=GL[i++%GL.length]};t();clearInterval(gI);gI=setInterval(t,7000)};
+$('#gnX').onclick=gnExit;
+$('#rpBtn').onclick=()=>{const n=new Date(),ym=n.toLocaleDateString('en-CA').slice(0,7),ms=moods.filter(x=>x.d.startsWith(ym)&&M[x.m]),c={};ms.forEach(x=>c[x.m]=(c[x.m]||0)+1);const top=Object.entries(c).sort((a,b)=>b[1]-a[1]),pos=ms.filter(x=>x.m==='happy'||x.m==='hopeful').length,en=rd('mlw-entries',[]).filter(e=>e.ts&&new Date(e.ts).toLocaleDateString('en-CA').startsWith(ym)).length,gd=rd('mlw-goals',[]).filter(g=>g.done).length,msg=!ms.length?'এই মাসে এখনো কোনো মন লেখা হয়নি। আজই শুরু করো—একটা ছোট্ট বাছাইই যথেষ্ট।':pos*2>=ms.length?'এই মাসে আলো-ভরা দিন অনেক ছিল। নিজেকে অভিনন্দন! ✨':'কঠিন দিন ছিল, তবু তুমি নিজের খোঁজ নিয়েছ। এটাই সাহসের কাজ। 🤍',s=document.createElement('div');s.className='sheet';s.innerHTML=`<div><h3>${n.toLocaleDateString('bn-BD',{month:'long'})}-এর মনের রিপোর্ট 📊</h3>${top.map(([k,v])=>`<div class="rb"><span>${M[k][0]}</span><i style="width:${v/ms.length*65}%"></i><b>${bn(v)}</b></div>`).join('')}<div class="comfort" style="margin:12px 0"><p style="margin:0">${msg}</p></div><div class="rl">📝 ইতিমধ্যে লেখা পাতা: ${bn(en)}</div><div class="rl">✧ পূর্ণ লক্ষ্য: ${bn(gd)}</div><div class="rl">🫙 বয়ামের আলো: ${bn(jar.length)}</div><div class="rl">✨ ইচ্ছে-তারা: ${bn(wishes.length)}</div><button class="btn f w" style="margin-top:12px">ঠিক আছে ♡</button></div>`;s.onclick=e=>{if(e.target===s||e.target.tagName==='BUTTON')s.remove()};document.body.appendChild(s)};
+/* voice, challenge, theme */
+let vo=rd('mlw-voice',false);
+function say(t){if(!vo||!window.speechSynthesis)return;speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);u.lang='bn-BD';u.rate=.8;u.pitch=.95;const v=speechSynthesis.getVoices().find(x=>/^bn/i.test(x.lang));if(v)u.voice=v;speechSynthesis.speak(u)}
+const vu=()=>{$('#voBtn').textContent=vo?'🔊 কণ্ঠস্বর চালু':'🔇 কণ্ঠস্বর বন্ধ';$('#voBtn').classList.toggle('sel',vo)};
+$('#voBtn').onclick=()=>{vo=!vo;if(vo&&!window.speechSynthesis){vo=false;vu();toast('এই ব্রাউজারে কণ্ঠস্বর নেই।');return}wr('mlw-voice',vo);vu();if(vo){say('শুরু করা যাক, ধীরে শ্বাস নাও।');if(!speechSynthesis.getVoices().some(x=>/^bn/i.test(x.lang)))toast('বাংলা কণ্ঠ না পেলে ফোনের Settings থেকে Bangla text-to-speech চালু করো।')}else speechSynthesis.cancel()};vu();
+const CH=['আজ কাউকে একটা মিষ্টি কথা বলো।','পাঁচ মিনিট ফোন ছাড়া জানালার পাশে বসো।','আজ ৩টা ভালো জিনিস লিখে রাখো।','এক গ্লাস পানি বেশি খাও।','আয়নায় তাকিয়ে নিজেকে একটা হাসি দাও।','পছন্দের গান শুনে একটু চোখ বুজে থাকো।','অন্য কারও প্রশংসা করো।','পাঁচটা লম্বা শ্বাস নাও।','একটা পুরনো ভালো স্মৃতি মনে করো।','টেবিলের একটা ছোট কোণ গুছিয়ে নাও।','নিজেকে একটা ভালো কথা বলো, জোরে।','দশ মিনিট হাঁটে এসো।','যাকে মিস করো, তাকে একটা মেসেজ দাও।','আজ রাতে ঘুমের আগে ফোন রেখে দাও।'];let cdn=rd('mlw-ch',[]);
+function chUI(){const done=cdn.includes(today());let s=0,d=new Date();if(!done)d.setDate(d.getDate()-1);while(cdn.includes(d.toLocaleDateString('en-CA'))){s++;d.setDate(d.getDate()-1)}$('#chT').textContent=CH[doy%CH.length];$('#chB').textContent=done?'হয়ে গেছে 🎉':'করেছি ✓';$('#chB').disabled=done;$('#fl').classList.toggle('on',s>0);$('#chS').textContent=s?bn(s)+' দিনের ধারাবাহিকতা':'আজ থেকে শুরু করো';return s}
+$('#chB').onclick=()=>{if(cdn.includes(today()))return;cdn.push(today());wr('mlw-ch',cdn.slice(-120));const s=chUI();buzz();petals([3,7,14,30].includes(s)?40:14);toast(s>1?bn(s)+' দিন টানা! দারুণ ✨':'প্রথম দিনটা হয়ে গেল 🌱')};
+function th(t){document.documentElement.dataset.th=t;$$('#sw button').forEach(b=>b.classList.toggle('sel',b.dataset.t===t));wr('mlw-th',t);const c={'':'#0c0b0e',pink:'#0c0b0e',blue:'#0c0b0e',green:'#0c0b0e'};document.querySelector('meta[name=theme-color]').content=c[t]||'#0c0b0e'}
+$('#sw').onclick=e=>{const b=e.target.closest('button');if(b){th(b.dataset.t);buzz();toast('রঙ বদলে গেল 🎨')}};th(rd('mlw-th',''));chUI();
+/* draft, routine, quote card, sparkles, more words */
+let dt;const dfs=()=>{clearTimeout(dt);dt=setTimeout(()=>{wr('mlw-draft',{t:$('#eT').value,m:$('#eM').value,x:$('#eX').value});const f=$('#dfT');f.textContent='✓ খসড়া রাখা হয়েছে';f.style.opacity=1;setTimeout(()=>f.style.opacity=0,1500)},600)};
+['#eT','#eM','#eX'].forEach(s=>$(s).addEventListener('input',dfs));$('#eM').addEventListener('change',dfs);
+const dr=rd('mlw-draft',{});if(dr.x||dr.t){$('#eT').value=dr.t||'';$('#eX').value=dr.x||'';if(dr.m)$('#eM').value=dr.m;$('#dfT').textContent='আগের খসড়া ফিরিয়ে এনেছি ♡';$('#dfT').style.opacity=1}
+const RO={m:['এক গ্লাস পানি খাই','তিনটা লম্বা শ্বাস নিই','আজকের একটা ছোট্ট ইচ্ছে ঠিক করি'],d:['কাঁধ একটু ঢিলে করি','কিছু মুখে দিই','পাঁচ মিনিট বিরতি নিই'],n:['ফোন একটু দূরে রাখি','আজকের একটা ভালো মুহূর্ত মনে করি','নিজেকে বলি: আজ যথেষ্ট করেছি']};
+function roUI(){const h=new Date().getHours(),k=h>=5&&h<12?'m':h>=12&&h<18?'d':'n';let r=rd('mlw-ro',{});if(r.d!==today()||r.k!==k)r={d:today(),k,c:[]};const T={m:'সকালের ছোট্ট রুটিন ☀',d:'দুপুরের নরম বিরতি 🌤',n:'রাতের ছোট্ট রুটিন 🌙'};$('#roT').textContent=T[k];$('#roL').innerHTML=RO[k].map((t,i)=>`<label><input type="checkbox" data-i="${i}" ${r.c[i]?'checked':''}>${t}</label>`).join('');$('#roB').style.width=RO[k].filter((_,i)=>r.c[i]).length/3*100+'%';$('#roL').onchange=e=>{r.c[+e.target.dataset.i]=e.target.checked;wr('mlw-ro',r);buzz();if(RO[k].every((_,i)=>r.c[i])){petals(20);toast('রুটিনটা সম্পূর্ণ! 🌸')}roUI()}}
+document.addEventListener('pointerdown',e=>{if(RM)return;for(let i=0;i<4;i++){const s=document.createElement('i');s.className='spk';s.style.left=e.clientX+'px';s.style.top=e.clientY+'px';document.body.appendChild(s);const a=Math.random()*6.28,d=18+Math.random()*26;s.animate([{transform:'translate(-50%,-50%) scale(1)',opacity:1},{transform:`translate(calc(-50% + ${Math.cos(a)*d}px),calc(-50% + ${Math.sin(a)*d}px)) scale(0)`,opacity:0}],{duration:600+Math.random()*300}).onfinish=()=>s.remove()}});
+async function qshare(t){t=t.replace(/[“”]/g,'').trim();try{await document.fonts.load('600 60px "Hind Siliguri"')}catch(e){}const c=document.createElement('canvas');c.width=1080;c.height=1350;const x=c.getContext('2d'),g=x.createLinearGradient(0,0,0,1350);g.addColorStop(0,'#1b1838');g.addColorStop(.55,'#5d4156');g.addColorStop(1,'#b98468');x.fillStyle=g;x.fillRect(0,0,1080,1350);for(let i=0;i<90;i++){x.fillStyle=`rgba(243,221,188,${Math.random()*.7})`;x.beginPath();x.arc(Math.random()*1080,Math.random()*800,Math.random()*2.2+.4,0,7);x.fill()}x.shadowColor='#f3d7aa';x.shadowBlur=70;x.fillStyle='#f3d7aa';x.beginPath();x.arc(820,240,80,0,7);x.fill();x.shadowBlur=0;x.textAlign='center';x.fillStyle='#fff3dc';x.font='600 62px "Hind Siliguri",sans-serif';const L=[];let l='';t.split(' ').forEach(w=>{const n=l?l+' '+w:w;if(x.measureText(n).width>880&&l){L.push(l);l=w}else l=n});L.push(l);const y0=700-L.length*50;L.forEach((s,i)=>x.fillText(s,540,y0+i*100));x.font='500 36px "Hind Siliguri",sans-serif';x.fillStyle='#f3d7aacc';x.fillText("Meghla's Little World ☾",540,1240);
+const b=await new Promise(r=>c.toBlob(r,'image/png')),f=new File([b],'meghla.png',{type:'image/png'}),s=document.createElement('div');s.className='sheet';s.innerHTML=`<div style="text-align:center"><img src="${c.toDataURL('image/png')}" alt="" style="width:100%;max-height:52vh;object-fit:contain;border-radius:16px"><p class="mini">ছবিটা চেপে ধরে Save করতে পারো ♡</p><div style="display:flex;gap:10px"><button class="btn" data-a="x" style="flex:1">বন্ধ</button><button class="btn f" data-a="s" style="flex:1">শেয়ার করি</button></div></div>`;s.onclick=async e=>{const a=e.target.dataset.a;if(e.target===s||a==='x')s.remove();else if(a==='s'){try{if(navigator.canShare&&navigator.canShare({files:[f]}))await navigator.share({files:[f],title:"Meghla's Little World"});else toast('ছবিটা চেপে ধরে Save করো ♡')}catch(er){}}};document.body.appendChild(s)}
+$('#homeQ').onclick=()=>qshare($('#homeAff').textContent);$('#mpQ').onclick=()=>qshare($('#mpM').textContent);
+Object.assign(MP,{'নিজের জন্য':['আজ নিজের সবচেয়ে ভালো বন্ধু হয়ে ওঠো।','তুমি নিজেই নিজের নিরাপদ জায়গা।','তোমার প্রয়োজনগুলো গুরুত্বপূর্ণ, না বলাটাও ঠিক আছে।','নিজেকে সময় দেওয়া স্বার্থপরতা নয়।','তুমি যেমন, তেমনই অনেক সুন্দর।','আজ নিজের জন্য ছোট্ট একটা ভালো কাজ করো।','তুমি নিজের যত্নের পুরো যোগ্য।'],'কৃতজ্ঞতা':['এক কাপ চা-ও আজ একটা উপহার।','যারা পাশে ছিল, তাদের কথা একটু মনে করো।','আজ যা আছে, তার মধ্যেই একটা আলো খুঁজে নাও।','ছোট্ট জিনিসের জন্য ধন্যবাদ বলাটাই সুখের চাবি।','তুমি এখনো এখানে—এটাও একটা কৃতজ্ঞতার কারণ।','আকাশটা আজও তোমার মাথার ওপরে আছে ☾','আজকের একটা সুন্দর মুহূর্ত মনে করে হাসো।'],'ঘুমের আগে':['আজকের সব ভার এই বালিশে নামিয়ে রাখো।','কাল নতুন একটা সুযোগ নিয়ে আসবে।','যা হয়নি, তা কাল হবে; এখন শুধু ঘুম।','চোখ বন্ধ করো, তারারা তোমাকে পাহারা দিচ্ছে ✨','আজ যতটুকু পেরেছ, ততটুকুই যথেষ্ট।','ধীরে শ্বাস নাও; শরীর নিজেই ঘুমের পথ চেনে।','শুভ রাত্রি, মেঘলা—মিষ্টি স্বপ্ন দেখো 🌙']});
+$('#mpC').innerHTML=Object.keys(MP).map(k=>`<button class="chip${k===mk?' sel':''}" data-k="${k}">${k}</button>`).join('');
+ALL.push(...['নিজের জন্য','কৃতজ্ঞতা','ঘুমের আগে'].flatMap(k=>MP[k].map(x=>'“'+x+'”')));
+/* stickers, reminders, special days, mood corner */
+const MC={'মন খারাপ':'#6f8fc9','অস্থির':'#a58bd4','ক্লান্ত':'#8a8f9c','আশাবাদী':'#8fc79a','কৃতজ্ঞ':'#e5b872','আনন্দিত':'#f08fa3','মিশ্র অনুভূতি':'#c79a9c'};
+let sk='';const SK=['🌸','⭐','☁️','🦋','🍀','🌙','💌','🍓','🌈','🕊️'];
+function stkUI(){$('#stks').innerHTML=SK.map(s=>`<button data-s="${s}" class="${s===sk?'sel':''}">${s}</button>`).join('')}
+$('#stks').onclick=e=>{const b=e.target.closest('button');if(!b)return;sk=sk===b.dataset.s?'':b.dataset.s;stkUI();buzz()};stkUI();
+const mcb=()=>{$('#eX').style.borderColor=MC[$('#eM').value]||''};$('#eM').addEventListener('change',mcb);mcb();
+let rm=rd('mlw-rm',{on:false,t:'21:00',last:''});
+function rmUI(){$('#rmT').value=rm.t;$('#rmB').textContent=rm.on?'🔔 চালু আছে — বন্ধ করি':'🔔 রিমাইন্ডার চালু করি'}
+async function rmFire(){const m=ALL[Math.floor(Math.random()*ALL.length)].replace(/[“”]/g,'');try{if('Notification' in window&&Notification.permission==='granted'){const r=navigator.serviceWorker&&await navigator.serviceWorker.getRegistration();if(r)r.showNotification('Meghla ☾',{body:m,icon:'icon-192.png'});else new Notification('Meghla ☾',{body:m})}}catch(e){}toast('💌 '+m)}
+$('#rmB').onclick=async()=>{if(!rm.on){try{if('Notification' in window&&Notification.permission==='default')await Notification.requestPermission()}catch(e){}if(!('Notification' in window)||Notification.permission!=='granted')toast('নোটিফিকেশনের অনুমতি নেই—অ্যাপ খোলা থাকলে ভেতরে মনে করাবে।');rm.on=true}else rm.on=false;rm.t=$('#rmT').value||'21:00';rm.last='';wr('mlw-rm',rm);rmUI()};
+setInterval(()=>{if(!rm.on)return;const hm=new Date().toTimeString().slice(0,5);if(hm>=rm.t&&rm.last!==today()){rm.last=today();wr('mlw-rm',rm);rmFire()}},20000);rmUI();
+function surprise(l){const s=document.createElement('div');s.className='sur';let h='';for(let i=0;i<14;i++)h+=`<span class="bl" style="left:${Math.random()*92}%;animation-delay:${Math.random()*2.5}s;animation-duration:${6+Math.random()*4}s;filter:hue-rotate(${i*26}deg)">🎈</span>`;for(let i=0;i<50;i++)h+=`<i class="cf" style="left:${Math.random()*100}%;background:hsl(${Math.random()*360},80%,65%);animation-delay:${Math.random()*3}s;animation-duration:${3+Math.random()*3}s"></i>`;s.innerHTML=h+`<div class="sc"><div class="ck">🎂</div><h2>শুভ ${esc(l)}, মেঘলা!</h2><p>আজ তোমার দিন—আজ শুধু নিজেকে আদর করো ♡</p><button class="btn f">ধন্যবাদ ♡</button></div>`;s.querySelector('button').onclick=()=>s.remove();document.body.appendChild(s);buzz();chime()}
+let sp=rd('mlw-sp',[]);
+function spUI(){$('#spL2').innerHTML=sp.map((x,i)=>`<div class="row"><span style="flex:1">🎂 ${esc(x.l)} · ${bn(x.md.slice(3))}/${bn(x.md.slice(0,2))}</span><button class="link" data-p="${i}">দেখো</button><button class="link" data-q="${i}">মুছি</button></div>`).join('')}
+$('#spB').onclick=()=>{const l=$('#spL').value.trim()||'জন্মদিন',d=$('#spD').value;if(!d){toast('তারিখটা বেছে নাও।');return}sp.push({l,md:d.slice(5)});wr('mlw-sp',sp);$('#spL').value='';spUI();toast('বিশেষ দিনটা মনে থাকবে 🎂')};
+$('#spL2').onclick=e=>{const p=e.target.dataset.p,q=e.target.dataset.q;if(p!=null)surprise(sp[+p].l);if(q!=null){sp.splice(+q,1);wr('mlw-sp',sp);spUI()}};spUI();
+const hit=sp.find(x=>x.md===today().slice(5));if(hit&&rd('mlw-sur','')!==today()){wr('mlw-sur',today());setTimeout(()=>surprise(hit.l),900)}
+function chime(){try{AC=AC||new(window.AudioContext||window.webkitAudioContext)();AC.resume();[523.25,659.25,783.99,1046.5].forEach((f,i)=>{const o=AC.createOscillator(),g=AC.createGain(),t=AC.currentTime+i*.12;o.type='sine';o.frequency.value=f;g.gain.setValueAtTime(.0001,t);g.gain.linearRampToValueAtTime(.18,t+.03);g.gain.exponentialRampToValueAtTime(.001,t+.6);o.connect(g);g.connect(AC.destination);o.start(t);o.stop(t+.65)})}catch(e){}}
+const HP=['সামুদ্রিক ওটাররা ঘুমানোর সময় হাত ধরে থাকে, যাতে ভেসে না যায় 🦦','অক্টোপাসের তিনটা হৃদয় আছে 🐙','প্রজাপতিরা পা দিয়ে খাবারের স্বাদ নেয় 🦋','হাতিরা পুরনো বন্ধুকে অনেক বছর পরেও চিনতে পারে 🐘','মৌমাছিরা নেচে নেচে বন্ধুদের ফুলের খবর দেয় 🐝','তোমার হাসিটা সত্যিই সংক্রামক—কেউ না কেউ আজ তোমাকে দেখে হাসবে 😊','আজ তুমি অন্তত একটা ছোট্ট কাজ ঠিকঠাক করেছ—সেটাই জিতে যাওয়া ✨','তুমি এমন একজন, যার কথা মনে করে কেউ আজ হাসছে 💛','তোমার মতো মানুষ পৃথিবীটাকে একটু নরম করে দেয় 🌷'];
+$('#hpB').onclick=()=>{pop('একটা ছোট্ট সারপ্রাইজ 🎁',HP[Math.floor(Math.random()*HP.length)]);petals(18);chime();buzz()};
+let hg=null;const hs=()=>{if(hg)return;let t=0;$('#hugB').classList.add('hold');$('#hugT').textContent='ধরে রাখো… '+bn(5);hg=setInterval(()=>{t++;try{navigator.vibrate&&navigator.vibrate([50,90,50])}catch(e){}if(t<5)$('#hugT').textContent='ধরে রাখো… '+bn(5-t);else{$('#hugT').textContent='এই আলিঙ্গনটা শুধু তোমার জন্য 🤍';petals(30);clearInterval(hg);hg='d'}},1000)};
+const he=()=>{if(hg&&hg!=='d'){clearInterval(hg);$('#hugT').textContent='আরেকটু ধরে রাখলে পারতে, আবার চেষ্টা করো'}hg=null;$('#hugB').classList.remove('hold')};
+['pointerup','pointerleave','pointercancel'].forEach(v=>$('#hugB').addEventListener(v,he));$('#hugB').addEventListener('pointerdown',e=>{e.preventDefault();hs()});
+/* personal content from Meghla's notes */
+const q=a=>a.map(x=>'“'+x+'”');
+const AF=['আজ আমাকে সবকিছু সামলে ফেলতেই হবে—এমন কোনো নিয়ম নেই।','আমি যাকে চাই, সে আমাকে না-ও চাইতে পারে; তাতে আমার মূল্য কমে না।','আমি শুধু কারও পছন্দ হওয়ার জন্য জন্মাইনি—আমার নিজেরও একটা জীবন আছে।','আমার স্থির, সুন্দর জীবনের স্বপ্ন এখনো বেঁচে আছে; সময় লাগা মানে শেষ হয়ে যাওয়া নয়।','আল্লাহর কাছে আমি আমার অগোছালো কথাগুলোও বলতে পারি।','আমি ক্লান্ত হতে পারি, কাঁদতে পারি, বিরতি নিতে পারি—তবু আমি ব্যর্থ নই।','অন্যের সময়রেখা আমার জীবনের মাপকাঠি নয়।','আজ আমি নিজের সঙ্গে একটু কোমলভাবে কথা বলব।','সব উত্তর না জেনেও আমি এক পা এগোতে পারি।','আমার গল্পের এই অধ্যায়টাই পুরো গল্প নয়।','যে কষ্ট কাউকে বোঝাতে পারিনি, সেটাও আমার কাছে সত্যি।','আমি ধীরে ধীরে নিজের জন্য শান্ত একটা জীবন গড়ে তুলতে পারি।'];
+A.push(...q(AF));ALL.push(...q(AF));
+MP['আত্মসম্মান']=['কারও না বলা তোমার পুরো পরিচয় নয়। কখনও মানুষটার চেয়ে নিজের স্বপ্নভাঙার কষ্টটা বেশি লাগে। একটু সময় নাও। তোমার মূল্য কারও পছন্দ-অপছন্দে মাপা যায় না।','আমি শুধু কারও পছন্দ হওয়ার জন্য জন্মাইনি—আমার নিজেরও একটা জীবন আছে।','একটা প্রত্যাখ্যান তোমার ভবিষ্যতের রায় নয়। তুমি যে ভালোবাসা, সম্মান আর স্থিরতা চাও—সেগুলো চাওয়ার অধিকার তোমার আছে। নিজেকে ছোট করে সেই স্বপ্নের যোগ্য প্রমাণ করতে হবে না।'];
+MP['ভবিষ্যৎ']=['পুরো জীবনটা আজই বুঝে ফেলতে হবে না। তুমি হয়তো স্থিরতা, ভালোবাসা আর নিশ্চিন্ত একটা ভবিষ্যৎ চাও। এই চাওয়াগুলো ভুল নয়। সব উত্তর একদিনে না পেলেও তুমি পিছিয়ে পড়োনি—আজ শুধু পরের ছোট পদক্ষেপটা বেছে নাও।','আমার স্থির, সুন্দর জীবনের স্বপ্ন এখনো বেঁচে আছে; সময় লাগা মানে শেষ হয়ে যাওয়া নয়।','অন্যের সময়রেখা আমার জীবনের মাপকাঠি নয়।','সব উত্তর না জেনেও আমি এক পা এগোতে পারি।','আমার গল্পের এই অধ্যায়টাই পুরো গল্প নয়।'];
+ALL.push(...q(MP['আত্মসম্মান']),...q(MP['ভবিষ্যৎ']));
+$('#mpC').innerHTML=Object.keys(MP).map(k=>`<button class="chip${k===mk?' sel':''}" data-k="${k}">${k}</button>`).join('');
+LT.unshift('প্রিয় তুমি, আজ যদি মনটা খুব ক্লান্ত হয়, সব প্রশ্নের উত্তর খুঁজতে হবে না। একটু পানি খাও, ধীরে শ্বাস নাও। আজকের দিনটা পার করাই যথেষ্ট। — তোমার নিজের কাছ থেকে ♡','একটা প্রত্যাখ্যান তোমার ভবিষ্যতের রায় নয়। তুমি যে ভালোবাসা, সম্মান আর স্থিরতা চাও—সেগুলো চাওয়ার অধিকার তোমার আছে। নিজেকে ছোট করে সেই স্বপ্নের যোগ্য প্রমাণ করতে হবে না।','তুমি হয়তো অনেক দিন ধরে শক্ত থাকার চেষ্টা করছ। কিন্তু শক্ত মানুষদেরও বিশ্রাম লাগে, কান্না লাগে, কারও কাছে একটু আশ্রয় চাইতে ইচ্ছে করে। আজ নিজের দুর্বলতাকে শাস্তি দিও না।','প্রিয় ভবিষ্যতের আমি, আজকের অনিশ্চয়তার মাঝেও আমি চেষ্টা করেছিলাম। আশা করি তুমি নিজের সঙ্গে আরও কোমল হতে শিখেছ।','আল্লাহর কাছে তোমার কথা বলতে কোনো সাজানো বাক্য লাগে না। ভয়, অভিমান, আশা—সব নিজের ভাষায় বলো। তারপর আজকের জন্য যতটুকু সম্ভব, ততটুকু করো।','তোমার জীবন অন্য কারও জীবনের সঙ্গে প্রতিযোগিতা নয়। তোমার নিজের গতিও গ্রহণযোগ্য।','আজ যদি শুধু নিজের পাশে দাঁড়াতে পারো, সেটাও এক ধরনের অগ্রগতি। অন্ধকার দিনের মধ্যেও ছোট্ট আলো খুঁজে নেওয়া যায়।','তুমি শুধু তোমার কষ্ট নও। তুমি তোমার গল্প, তোমার কল্পনা, তোমার স্বপ্ন আর আবার শুরু করার ছোট্ট সাহসটুকুও।');
+BM.push('তোমার অনুভূতি সত্যি—নিজেকে বোঝানোর দরকার নেই যে কিছুই হয়নি।','একটু শ্বাস নাও। এই মুহূর্তে শুধু এই মুহূর্তটুকুই সামলাও।','কারও সিদ্ধান্ত তোমার পুরো মূল্য নির্ধারণ করে না।','আজ সবকিছুর সমাধান না হলেও তুমি থেমে যাওনি।','নিজেকে সেই কোমলতাটুকু দাও, যা তুমি অন্য কাউকে দিতে।','তোমার স্বপ্নের পথে ধীরে হাঁটাও হাঁটা।','মনের কথা আল্লাহর কাছে নিজের ভাষায় বলো।','আজ তোমাকে পুরো ভবিষ্যৎ একা সামলাতে হবে না।','নিজের জন্য শান্ত একটা জীবন চাওয়া কোনো বাড়াবাড়ি নয়।','আজকের কষ্টটাই তোমার পুরো গল্প নয়।');
+ST.push(['🥀 নিজেকে দোষ দেওয়া বন্ধ','নিজেকে দোষ দেওয়া বন্ধ করি','আজ যে ঘটনা আমাকে কষ্ট দিয়েছে…\n\nআমি যেটাকে নিজের দোষ ভাবছি…\n\nএকজন প্রিয় মানুষ একই কথা বললে তাকে আমি কী বলতাম?\n\nআজ নিজের জন্য আমি যা মনে রাখতে চাই…']);
+$('#starters').innerHTML=ST.map((s,i)=>`<button class="chip" data-s="${i}">${s[0]}</button>`).join('');
+const DT=[['হে আল্লাহ, আজ আমার মনটা…','হে আল্লাহ,\n\nআজ আমার মনটা…\n\nযে কথাটা কাউকে বলতে পারছি না…\n\nআমি যে সাহায্য ও শান্তি চাই…\n\nআমাকে সঠিক পথে ছোট ছোট পদক্ষেপ নিতে সাহায্য করো।\n',''],['যে কষ্ট কাউকে বোঝাতে পারিনি','যে কষ্টটা কাউকে বোঝাতে পারিনি…\n\n','যা কষ্ট দিচ্ছে, যেমন আছে তেমন করেই আল্লাহর কাছে বলো। দোয়ার পাশাপাশি নিজের যত্ন নেওয়া, বিশ্রাম নেওয়া আর বিশ্বাসের কারও সাহায্য চাওয়াও ঠিক আছে।'],['আমার ভয়, অভিমান ও আশা','আমার ভয়…\n\nআমার অভিমান…\n\nআমার আশা…\n','আল্লাহর কাছে তোমার কথা বলতে কোনো সাজানো বাক্য লাগে না। ভয়, অভিমান, আশা—সব নিজের ভাষায় বলো। তারপর আজকের জন্য যতটুকু সম্ভব, ততটুকু করো।']];
+const NT=[['আজকের দিনটা','আজকের দিনটা আমার জন্য কঠিন ছিল কারণ…\n\nআমি যা আর আজ রাতে ভাবতে চাই না…\n\nআগামীকাল নিজের জন্য একটা ছোট্ট কাজ…\n'],['না-বলা কথা','যদি নির্ভয়ে সব বলতে পারতাম, তাহলে বলতাম…\n'],['আমার ছোট্ট সুন্দর মুহূর্ত','আজকের একটা ছোট্ট সুন্দর মুহূর্ত…\n\nএটা মনে রাখতে চাই কারণ…\n'],['নিজের প্রতি কোমলতা','আজ আমি নিজের সঙ্গে একটু কোমলভাবে কথা বলব।\n']];
+const tl=(id,arr,hid,pre)=>{$(id).innerHTML=arr.map((t,i)=>`<button class="pr" data-i="${i}">${t[0]}</button>`).join('');$(id).onclick=e=>{const b=e.target.closest('.pr');if(!b)return;const t=arr[+b.dataset.i];$('#eT').value=pre||t[0];$('#eX').value=t[1];if(hid)$(hid).textContent=t[2]||'';$('#eX').focus();$('#eX').scrollIntoView({behavior:'smooth',block:'center'});buzz()}};
+tl('#doaL',DT,'#doaH','আমার দোয়ার খাতা');tl('#nightL',NT,'');
+$('#cTpl').onclick=()=>{$('#cT').value='প্রিয় ভবিষ্যতের আমি,\n\nআশা করি তুমি এখন একটু শান্তিতে আছ। আজ আমি যে কথাগুলো তোমাকে জানাতে চাই…\n\nআমি চাই তুমি মনে রেখো…\n\nআজকের অনিশ্চয়তার মাঝেও আমি চেষ্টা করেছিলাম। আশা করি তুমি নিজের সঙ্গে আরও কোমল হতে শিখেছ।\n';$('#cT').focus();buzz()};
+MP['আল্লাহর ভরসা']=['যা কষ্ট দিচ্ছে, যেমন আছে তেমন করেই আল্লাহর কাছে বলো। দোয়ার পাশাপাশি নিজের যত্ন নেওয়া, বিশ্রাম নেওয়া আর বিশ্বাসের কারও সাহায্য চাওয়াও ঠিক আছে।','আল্লাহর কাছে তোমার কথা বলতে কোনো সাজানো বাক্য লাগে না। ভয়, অভিমান, আশা—সব নিজের ভাষায় বলো। তারপর আজকের জন্য যতটুকু সম্ভব, ততটুকু করো।','আল্লাহর কাছে আমি আমার অগোছালো কথাগুলোও বলতে পারি।'];
+MP['ভবিষ্যৎ'].push('তোমার জীবন অন্য কারও জীবনের সঙ্গে প্রতিযোগিতা নয়। তোমার নিজের গতিও গ্রহণযোগ্য।');
+$('#mpC').innerHTML=Object.keys(MP).map(k=>`<button class="chip${k===mk?' sel':''}" data-k="${k}">${k}</button>`).join('');
+$('#abtB').onclick=()=>pop('♡ Meghla-তে তোমার জন্য কী রেখেছি','• কষ্টের সময়: নিজের অনুভূতিকে অস্বীকার না করে স্বীকার করার জায়গা।\n• প্রত্যাখ্যানের পর: নিজের সম্মান ও মূল্য মনে করিয়ে দেওয়ার কথা।\n• ভবিষ্যৎ নিয়ে ভয় হলে: নিজের স্বপ্নকে সময় দেওয়ার সাহস।\n• মন ভারী হলে: আল্লাহর কাছে মনের কথা লেখার জায়গা।\n• রাতে একা লাগলে: নিজের সঙ্গে কথা বলার ডায়েরি ও চিঠি।\n• কিছুই পড়তে ইচ্ছে না করলে: ছোট্ট বুদবুদের নরম বার্তা।\n\nএগুলো তোমার অনুভূতিকে বুঝতে সাহায্য করার জন্য লেখা, তোমার হয়ে তোমার জীবন ঠিক করে দেওয়ার জন্য নয়। তোমার কষ্টকে ছোট না করে, ধীরে ধীরে নিজের পাশে দাঁড়ানোর জন্যই Meghla ☾-কে এমন করে সাজানো। ♡');
+/* Moon থেকে আনা ফিচার: তারার মানচিত্র, চিঠির ঘর, গোপন দরজা, রিচুয়াল, ডায়েরি ডাউনলোড */
+(()=>{
+
+const stars={
+ worth:'প্রশ্ন: আজ যদি কাউকে কিছু প্রমাণ করতে না হতো, তাহলে নিজের সম্পর্কে কোন সত্যিটা মনে রাখতে চাইতে?',
+ dream:'প্রশ্ন: আগামী তিন মাসে তোমার নিজের ভবিষ্যতের জন্য কোন ছোট্ট পদক্ষেপটি নিতে পারো?',
+ peace:'প্রশ্ন: কোন কাজ, জায়গা বা মানুষের কাছে গেলে তোমার মন একটু শান্ত হয়?',
+ courage:'প্রশ্ন: ভয় থাকলেও তুমি আগে কোন কঠিন কাজটি পার করে এসেছ?',
+ memory:'প্রশ্ন: এমন কোন ছোট স্মৃতি আছে যা মনে পড়লে তোমার মুখে একটু হাসি আসে?',
+ wish:'প্রশ্ন: কাউকে খুশি করার কথা না ভেবে, আজ নিজের জন্য কী চাইতে?'
+};
+const letters={
+ rejection:{title:'যে দরজাটি বন্ধ হয়েছিল',text:'প্রিয় তুমি,\n\nকেউ তোমাকে বেছে নেয়নি—এই ঘটনা তোমাকে ছোট করে দেয় না। কখনও আমরা শুধু একজন মানুষকে হারাই না; তার সঙ্গে কল্পনা করা ভবিষ্যৎটাকেও বিদায় জানাই। তাই কষ্টটা সত্যি।\n\nতবু তোমার মূল্য কোনো একজনের সিদ্ধান্তের হাতে তুলে দিও না। তুমি যে সম্মান, নিরাপত্তা, ভালোবাসা আর স্থিরতা চাও, সেগুলো চাওয়ার অধিকার তোমার আছে। আজ মন খারাপ হলে হোক। কিন্তু নিজেকে প্রত্যাখ্যান কোরো না।\n\n— তোমার নিজের কাছ থেকে ♡'},
+ future:{title:'ভবিষ্যতের আমিকে',text:'প্রিয় ভবিষ্যতের আমি,\n\nআজ আমি সব উত্তর জানি না। কিছু স্বপ্ন দূরে মনে হয়, কিছু ভয় খুব কাছে এসে দাঁড়ায়। তবু আমি চেষ্টা করছি—ছোট ছোটভাবে, নিজের মতো করে।\n\nযদি তুমি একদিন এই চিঠি পড়ো, মনে রেখো: আজকের আমি নিখুঁত ছিলাম না, কিন্তু হাল ছাড়তে চাইনি। আশা করি তুমি নিজের প্রতি কোমল হতে শিখেছ, নিজের সিদ্ধান্তে ভরসা করতে শিখেছ, আর অন্যের জীবনের সঙ্গে নিজের জীবন মাপা একটু কমিয়েছ।\n\nযে জীবন চাই, তার দিকে আজ আমি একটি ছোট পদক্ষেপ রাখছি।'},
+ unsent:{title:'যে কথা বলা হয়নি',text:'প্রিয় না-বলা কথা,\n\nতোমাকে কোথায় রাখব বুঝতে পারিনি বলেই হয়তো এত দিন নিজের ভেতরে জমিয়ে রেখেছি। আজ তোমাকে সুন্দর করে সাজাব না, যুক্তি দিয়ে ঢাকব না। যা সত্যি, তাই থাকুক।\n\nআমি কষ্ট পেয়েছি… আমি আশা করেছিলাম… আমার ভয় হচ্ছে… আমি এখনও চাই…\n\nএই পাতায় আমাকে বিচার করা হবে না। সব অনুভূতি লিখে ফেললেই সিদ্ধান্ত নিতে হবে না। আজ শুধু নিজের মনের কথা শুনব।'},
+ faith:{title:'সিজদার পরের নীরবতা',text:'হে আল্লাহ,\n\nআমার মনের কথাগুলো সবসময় গুছিয়ে বলতে পারি না। কখনও ভয় পাই, কখনও অভিমান হয়, কখনও শুধু একটু শান্তি চাই। তুমি আমার অগোছালো কথাগুলোও জানো।\n\nআমাকে যা আমার জন্য কল্যাণকর, তা বুঝতে ও তার জন্য চেষ্টা করতে সাহায্য করো। যা আমার হাতে নেই, তা নিয়ে নিজেকে ভেঙে না ফেলতে শেখাও। আমার মনকে প্রশান্তি দাও, আর সঠিক পদক্ষেপ নেওয়ার সাহস দাও।\n\nআজ আমি আমার ভয়, আশা আর চাওয়াগুলো তোমার কাছে রেখে নিজের সাধ্যের কাজটুকু করার চেষ্টা করব। আমিন।'}
+};
+const rituals=['এক গ্লাস পানি খাও। তিনবার ধীরে শ্বাস নাও। তারপর নিজেকে জিজ্ঞেস করো—এই মুহূর্তে আমার সবচেয়ে জরুরি প্রয়োজন কী?','ফোনটা দুই মিনিটের জন্য নামিয়ে রাখো। কাঁধ ঢিলে করো। আশেপাশে দেখা যায় এমন পাঁচটি জিনিস লক্ষ্য করো। শুধু এই মুহূর্তে ফিরে আসো।','একটি ছোট্ট বাক্য লেখো: “আজ আমি নিজের জন্য ___ করব।” কাজটি খুব ছোট হলেও চলবে—বিশ্রাম, গোছানো, একটু হাঁটা, বা কারও সঙ্গে কথা বলা।','আল্লাহর কাছে নিজের ভাষায় মনের কথা বলো। তারপর তোমার নিয়ন্ত্রণে আছে এমন একটি ছোট পদক্ষেপ বেছে নাও।'];
+const SY={worth:['✦','আমার মূল্য'],dream:['✧','আমার স্বপ্ন'],peace:['☾','আমার শান্তি'],courage:['⋆','আমার সাহস'],memory:['✴','একটি স্মৃতি'],wish:['☼','একটি ইচ্ছে']};
+const LS={rejection:'প্রত্যাখ্যান, আত্মসম্মান ও নতুন সকাল',future:'যে মানুষটি একদিন আরও শান্ত হবে',unsent:'অগোছালো অনুভূতির জন্য একটি নিরাপদ পাতা',faith:'দোয়া, ভরসা ও নিজের ভাষায় মনের কথা'};
+window.toDiary=function toDiary(title,body){$('#eT').value=title;$('#eX').value=body;go('diary');const x=$('#eX');x.focus();x.setSelectionRange(x.value.length,x.value.length)}
+
+/* তারার মানচিত্র */
+let curStar='';
+$('#stGrid').innerHTML=Object.keys(SY).map(k=>`<button class="stb" data-k="${k}"><b>${SY[k][0]}</b>${SY[k][1]}</button>`).join('');
+$('#stGrid').onclick=e=>{const b=e.target.closest('.stb');if(!b)return;const k=b.dataset.k;curStar=k;$$('.stb').forEach(x=>x.classList.toggle('sel',x===b));$('#stQ').textContent=stars[k].replace(/^প্রশ্ন:\s*/,'');$('#stO').classList.remove('hide');buzz()};
+$('#stW').onclick=()=>{if(!curStar)return;toDiary('তারার প্রশ্ন: '+SY[curStar][1],$('#stQ').textContent+'\n\n')};
+
+/* চিঠির ঘর */
+$('#ltGrid').innerHTML=Object.keys(letters).map(k=>`<button class="pr" data-k="${k}"><b>✉ ${esc(letters[k].title)}</b><span class="mini">${esc(LS[k]||'')}</span></button>`).join('');
+$('#ltGrid').onclick=e=>{const b=e.target.closest('.pr');if(!b)return;const l=letters[b.dataset.k];if(!l)return;buzz();
+const s=document.createElement('div');s.className='sheet';
+s.innerHTML=`<div><h3>${esc(l.title)}</h3><p class="mlt">${esc(l.text)}</p><div style="display:flex;gap:10px;margin-top:16px"><button class="btn" data-x="1">বন্ধ করি</button><button class="btn f" data-w="1" style="flex:1">ডায়েরিতে উত্তর লিখি →</button></div></div>`;
+s.onclick=ev=>{if(ev.target===s||ev.target.closest('[data-x]'))s.remove();else if(ev.target.closest('[data-w]')){s.remove();toDiary('চিঠির উত্তর: '+l.title,'')}};
+document.body.appendChild(s)};
+
+/* গোপন দরজা */
+function knockOld(){const v=$('#drK').value.trim().toLowerCase(),o=$('#drO');o.classList.remove('hide');
+if(v==='moon'){o.innerHTML='<strong>দরজাটি খুলে গেছে ✦</strong><p>মনে রেখো—নিজের অন্ধকারকে বুঝতে পারাও এক ধরনের আলো। আজ নিজের কাছে একটি সত্যি কথা বলো, যেটা তুমি অনেক দিন ধরে এড়িয়ে যাচ্ছ।</p><button class="btn" id="drW">সেই সত্যিটা ডায়েরিতে লিখি →</button>';$('#drW').onclick=()=>toDiary('গোপন দরজার সত্যি কথা','');petals(20);try{chime()}catch(e){}buzz()}
+else{o.innerHTML='<p style="margin:0">দরজাটি এখনও বন্ধ। ইঙ্গিতটা আবার পড়ো, তারপর আরেকবার চেষ্টা করো।</p>'}}
+
+
+/* ছোট্ট রিচুয়াল */
+let lastR=-1;
+$('#rtB').onclick=()=>{let i;do{i=Math.floor(Math.random()*rituals.length)}while(i===lastR&&rituals.length>1);lastR=i;const o=$('#rtO');o.textContent=rituals[i];o.classList.remove('hide');buzz()};
+
+/* ডায়েরি: .txt ডাউনলোড ও সব মুছে ফেলা */
+$('#eClr').onclick=()=>{if(!rd('mlw-entries',[]).length){toast('মোছার মতো লেখা নেই।');return}if(confirm('ডায়েরির সব পাতা স্থায়ীভাবে মুছে ফেলতে চাও?')){wr('mlw-entries',[]);entries();toast('ডায়েরি পরিষ্কার করা হয়েছে।')}};
+})();
+/* বহু-দরজা, কুকি, মোমবাতি, বয়ামের চিঠি */
+const DR=[
+{h:'রাতের আকাশে যে নীরব সঙ্গী থাকে, তার ইংরেজি নাম।',k:['moon','চাঁদ'],m:'মনে রেখো—নিজের অন্ধকারকে বুঝতে পারাও এক ধরনের আলো। আজ নিজের কাছে একটি সত্যি কথা বলো, যেটা তুমি অনেক দিন ধরে এড়িয়ে যাচ্ছ।'},
+{h:'বৃষ্টির পরে আকাশে যে সাত রঙের সেতু ওঠে, তার ইংরেজি নাম।',k:['rainbow','রংধনু','রামধনু'],m:'ঝড়ের পরেই রংধনু ওঠে। কঠিন দিনের পরেও রঙ ফিরবে—আজ শুধু একটা রঙিন জিনিস খুঁজে নাও।'},
+{h:'ছোট্ট একটা শিখা, যা অন্ধকারে পথ দেখায়—মোম দিয়ে তৈরি। (ইংরেজিতে)',k:['candle','মোমবাতি','মোম'],m:'একটা ছোট্ট আলোই পুরো ঘর আলো করে দিতে পারে। তুমিও কারও জন্য সেই আলো—নিজের জন্যও হও।'},
+{h:'যে ফুল সারাদিন সূর্যের দিকে মুখ ফেরায়। (ইংরেজি নাম)',k:['sunflower','সূর্যমুখী'],m:'আলোর দিকে মুখ ফেরানোই শুরু। আজ যেদিকে একটু আশা দেখা যায়, সেদিকে তাকাও।'},
+{h:'এই অ্যাপে যা ফাটালে নরম একটা কথা শোনা যায়। (বাংলায়)',k:['বুদবুদ','bubble'],m:'কিছু চিন্তা বুদবুদের মতো—অনেক বড় দেখায়, ছুঁলেই মিলিয়ে যায়। আজ একটা চিন্তাকে ছেড়ে দাও।'},
+{h:'ওটাররা ঘুমানোর সময় যেটা ধরে রাখে, যাতে ভেসে না যায়। (বাংলায়, দুই অক্ষর)',k:['হাত','hand','hands'],m:'কারও হাত ধরে থাকলে ভেসে যাওয়া কমে। তুমি যাকে বিশ্বাস করো, আজ তাকে একটা মেসেজ দাও।'},
+{h:'এই অ্যাপের নাম—বাংলায়, আকাশের এক মেজাজ।',k:['মেঘলা','meghla','মেঘ'],m:'এটা শুধু অ্যাপের নাম নয়—তোমার নিজের নাম। আজ নামটা একবার আস্তে উচ্চারণ করো, যেন কেউ খুব আদর করে ডাকছে।'}];
+let dc=rd('mlw-doors',[]),dcur=0;
+const nz=s=>s.trim().toLowerCase().replace(/[\s.,!?'"]/g,'');
+function drUI(){$('#drC').innerHTML=DR.map((d,i)=>`<button class="chip${i===dcur?' sel':''}" data-i="${i}">${dc.includes(i)?'🚪':'🔒'} ${bn(i+1)}</button>`).join('');$('#drH').textContent='ইঙ্গিত: '+DR[dcur].h+(dc.includes(dcur)?'  ✓ খোলা হয়েছে':'')+'  ·  '+bn(dc.length)+'/'+bn(DR.length)+' দরজা খোলা'}
+$('#drC').onclick=e=>{const b=e.target.closest('.chip');if(!b)return;dcur=+b.dataset.i;drUI();$('#drK').value='';$('#drO').classList.add('hide');buzz()};
+function knock2(){const v=nz($('#drK').value),d=DR[dcur],o=$('#drO');o.classList.remove('hide');if(v&&d.k.some(x=>nz(x)===v)){const fresh=!dc.includes(dcur);if(fresh){dc.push(dcur);wr('mlw-doors',dc)}drUI();o.innerHTML=`<strong>দরজাটি খুলে গেছে ✦</strong><p>${esc(d.m)}</p><button class="btn" id="drW">এটা নিয়ে ডায়েরিতে লিখি →</button>`;$('#drW').onclick=()=>toDiary('গোপন দরজা '+bn(dcur+1),d.m+'\n\n');petals(20);chime();buzz();if(fresh&&dc.length===DR.length)setTimeout(()=>{pop('🗝️ সব দরজা খুলে গেছে','তুমি সাতটা দরজাই খুলেছ। প্রতিটা দরজার পেছনে একটা কথা ছিল—আর সবগুলো কথাই তোমার জন্য। এই আকাশ, এই আলো, এই ছোট্ট জগৎ—সবটাই তোমার।');petals(60)},1200)}else o.innerHTML='<p style="margin:0">দরজাটি এখনও বন্ধ। ইঙ্গিতটা আবার পড়ো, তারপর আরেকবার চেষ্টা করো।</p>'}
+$('#drB').onclick=knock2;$('#drK').addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();knock2()}});drUI();
+$('#ckB').onclick=()=>{const b=$('#ckB'),s=$('#ckS');s.classList.remove('on');b.className='ck2 sh';buzz();setTimeout(()=>{b.className='ck2 bk';setTimeout(()=>{s.textContent=ALL[Math.floor(Math.random()*ALL.length)].replace(/[“”]/g,'');s.classList.add('on');b.className='ck2';petals(10);chime()},350)},650)};
+let cdOn=true;
+function blow(){const c=$('#cdl');if(!cdOn){cdOn=true;c.classList.remove('off');$('#cdB').textContent='ফুঁ দিই 🌬️';$('#cdT').textContent='';return}cdOn=false;c.classList.add('off');$('#cdB').textContent='আবার জ্বালাই 🕯️';$('#cdT').textContent='ইচ্ছেটা আকাশে মিলিয়ে গেল ✨';petals(10);buzz()}
+$('#cdB').onclick=async()=>{if(!cdOn){blow();return}try{const st=await navigator.mediaDevices.getUserMedia({audio:true});AC=AC||new(window.AudioContext||window.webkitAudioContext)();AC.resume();const an=AC.createAnalyser();an.fftSize=256;AC.createMediaStreamSource(st).connect(an);const d=new Uint8Array(an.frequencyBinCount),t0=Date.now();$('#cdT').textContent='মাইকের কাছে আস্তে ফুঁ দাও…';const iv=setInterval(()=>{an.getByteFrequencyData(d);const v=d.reduce((a,b)=>a+b,0)/d.length;if(v>60||Date.now()-t0>9000){clearInterval(iv);st.getTracks().forEach(t=>t.stop());blow()}},100)}catch(e){blow()}};
+$('#jLtr').onclick=()=>{if(jar.length<2){toast('বয়ামে অন্তত দুটো ভালো মুহূর্ত রাখো, তারপর চিঠি পাবে।');return}const p=[...jar].sort(()=>Math.random()-.5).slice(0,3).map(x=>'• '+x.t).join('\n');pop('বয়ামের চিঠি 💌','প্রিয় তুমি,\n\nকঠিন দিনেও তুমি এই ভালো মুহূর্তগুলো জমিয়েছ:\n\n'+p+'\n\nদেখো, আলো তোমার চারপাশেই ছিল। — তোমার নিজের কাছ থেকে ♡');petals(16)};
+/* keyboard (desktop) */
+const TB=[...$$('#nav button')].map(b=>b.dataset.go);
+$$('#nav button').forEach((b,i)=>b.title='কীবোর্ডে '+bn(i+1)+' চাপো');
+document.addEventListener('keydown',e=>{if(e.ctrlKey||e.metaKey||e.altKey)return;if(e.key==='Escape'){$$('.sheet').forEach(s=>s.id?s.classList.add('hide'):s.remove());if(!$('#bs').classList.contains('hide'))bsStop();if(!$('#gn').classList.contains('hide'))gnExit();return}if(/INPUT|TEXTAREA|SELECT/.test(e.target.tagName))return;const t=TB[+e.key-1];if(t&&$('#lock').classList.contains('hide'))go(t)});
+roUI();
+jarUI();wsky();strip();entries();goals();calUI();capUI();
+</script>
+</body>
+</html>
